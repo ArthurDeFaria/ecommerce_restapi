@@ -164,7 +164,8 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 ## 🛠️ Como Configurar o Projeto
 1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
 2. Acesse a pasta do projeto: `cd nome-do-projeto`
-3. Configure o banco de dados no `application.properties`
+3. Configure as variáveis de ambiente no `.env` com base no `.env.example`
+
 <!-- 4. Execute a aplicação:
    ```sh
    ./mvnw spring-boot:run
