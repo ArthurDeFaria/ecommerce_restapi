@@ -37,10 +37,10 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | POST   | /auth/registro            | Público                | ✅ Pronto           |
 | POST   | /auth/login               | Público                | ✅ Pronto           |
 | GET    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
-| PUT    | /usuarios/info            | USER, MANAGER, ADMIN   | 🔧 Em desenvolvimento |
+| PUT    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
 | DELETE | /usuarios/info            | USER, MANAGER, ADMIN   | 🔧 Em desenvolvimento |
 | GET    | /usuarios/{id}           | MANAGER, ADMIN         | ✅ Pronto           |
-| PUT    | /usuarios/{id}           | MANAGER, ADMIN         | 🔧 Em desenvolvimento |
+| PUT    | /usuarios/{id}           | MANAGER, ADMIN         | ✅ Pronto           |
 | DELETE | /usuarios/{id}           | ADMIN         | 🔧 Em desenvolvimento |
 | POST   | /auth/registro/adm       | ADMIN                  | ✅ Pronto           |
 | GET    | /usuarios                | ADMIN                  | ✅ Pronto           |
@@ -164,6 +164,7 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 ## 🛠️ Como Configurar o Projeto
 1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
 2. Acesse a pasta do projeto: `cd nome-do-projeto`
+3. Crie um arquivo `.env`
 3. Configure as variáveis de ambiente no `.env` com base no `.env.example`
 
 <!-- 4. Execute a aplicação:
