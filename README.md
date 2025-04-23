@@ -38,12 +38,12 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | POST   | /auth/login               | Público                | ✅ Pronto           |
 | GET    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
 | PUT    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
-| DELETE | /usuarios/info            | USER, MANAGER, ADMIN   | 🔧 Em desenvolvimento |
-| GET    | /usuarios/{id}           | MANAGER, ADMIN         | ✅ Pronto           |
-| PUT    | /usuarios/{id}           | MANAGER, ADMIN         | ✅ Pronto           |
-| DELETE | /usuarios/{id}           | ADMIN         | 🔧 Em desenvolvimento |
-| POST   | /auth/registro/adm       | ADMIN                  | ✅ Pronto           |
-| GET    | /usuarios                | ADMIN                  | ✅ Pronto           |
+| DELETE | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
+| GET    | /usuarios/{id}            | MANAGER, ADMIN         | ✅ Pronto           |
+| PUT    | /usuarios/{id}            | MANAGER, ADMIN         | ✅ Pronto           |
+| DELETE | /usuarios/{id}            | ADMIN                  | ✅ Pronto           |
+| POST   | /auth/registro/adm        | ADMIN                  | ✅ Pronto           |
+| GET    | /usuarios                 | ADMIN                  | ✅ Pronto           |
 
 ### 🏠 Endereços
 - `POST /enderecos` - Criar um novo endereço **(USER, MANAGER, ADMIN)**

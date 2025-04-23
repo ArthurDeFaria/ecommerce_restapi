@@ -116,4 +116,18 @@ public class UserService {
             updatedUser.getTelefone()
         );
     }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void deleteUsuarioLogadoInfo(String token) {
+        String cleanedToken = token.replace("Bearer ", "");
+        String email = jwtService.extractEmailFromToken(cleanedToken);
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new EntityNotFoundException("Usuário não encontrado");
+        }
+        userRepository.delete(user);
+    }
 }
