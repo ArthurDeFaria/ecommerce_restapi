@@ -8,7 +8,15 @@ Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinh
 - **Spring Security (JWT)**
 - **JPA/Hibernate**
 - **PostgreSQL**
-<!-- - **Swagger (Documentação)** -->
+- **Swagger (Documentação)**
+
+## SWAGGER
+A API conta com documentação interativa do Swagger, permitindo visualizar modelos de requisição/resposta e entender a estrutura da API.
+
+### 🔗 Como acessar a documentação
+Após iniciar o projeto localmente, acesse a URL abaixo no navegador:
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+> ⚠️ Certifique-se de que a aplicação esteja rodando e o perfil de desenvolvimento esteja ativado (`dev`). Caso esteja rodando em um servidor, acesse o endpoint `/swagger-ui/index.html`.
 
 ## 📌 Perfis de Usuário
 - **USER**: Pode criar conta, fazer login, gerenciar carrinho, pedidos e favoritos.
