@@ -25,13 +25,32 @@ public class UserService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserGetDTO> findAll() {
+    return userRepository.findAll().stream()
+            .map(user -> new UserGetDTO(
+                    user.getId(),
+                    user.getNome(),
+                    user.getEmail(),
+                    user.getCpf(),
+                    user.getDataNascimento().toString(),
+                    user.getTelefone()
+            ))
+            .toList();
     }
 
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserGetDTO findById(Long id) {
+    return userRepository.findById(id)
+            .map(user -> new UserGetDTO(
+                user.getId(),
+                user.getNome(),
+                user.getEmail(),
+                user.getCpf(),
+                user.getDataNascimento().toString(),
+                user.getTelefone()
+            ))
+            .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
+
 
     public UserGetDTO getUsuarioLogadoInfo(String token) {
         String cleanedToken = token.replace("Bearer ", "");
@@ -75,7 +94,7 @@ public class UserService {
             updatedUser.getNome(),
             updatedUser.getEmail(),
             updatedUser.getCpf(),
-            updatedUser.getDataNascimento(), // supondo que seja String ou você pode converter aqui
+            updatedUser.getDataNascimento(),
             updatedUser.getTelefone()
         );
     }

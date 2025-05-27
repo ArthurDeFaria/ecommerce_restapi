@@ -46,19 +46,32 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | GET    | /usuarios                 | ADMIN                  | ✅ Pronto           |
 
 ### 🏠 Endereços
-- `POST /enderecos` - Criar um novo endereço **(USER, MANAGER, ADMIN)**
-- `GET /enderecos/{id}` - Obter um endereço específico **(USER, MANAGER, ADMIN)**
-- `GET /enderecos/usuario/{usuarioId}` - Listar endereços de um usuário **(USER, MANAGER, ADMIN)**
-- `PUT /enderecos/{id}` - Atualizar endereço **(USER, MANAGER, ADMIN)**
-- `DELETE /enderecos/{id}` - Remover um endereço **(USER, MANAGER, ADMIN)**
+- `POST /enderecos` - Criar um novo endereço **(MANAGER, ADMIN)**
+- `GET /enderecos/{id}` - Obter um endereço específico **(MANAGER, ADMIN)**
+- `GET /enderecos/usuario/{usuarioId}` - Listar endereços de um usuário qualquer **(MANAGER, ADMIN)**
+- `PUT /enderecos/{id}` - Atualizar um endereço qualquer **(MANAGER, ADMIN)**
+- `DELETE /enderecos/{id}` - Remover um endereço qualquer **(ADMIN)**
+- `POST /enderecos/info` - Criar um novo endereço para o usuário logado **(USER, MANAGER, ADMIN)**
+- `GET /enderecos/info/{id}` - Obter um endereço específico do usuário logado **(USER, MANAGER, ADMIN)**
+- `GET /enderecos/info` - Listar endereços do usuário logado **(USER, MANAGER, ADMIN)**
+- `PUT /enderecos/{id}` - Atualizar o endereço do usuário logado **(USER, MANAGER, ADMIN)**
+- `DELETE /enderecos/{id}` - Remover o endereço do usuário logado **(USER, MANAGER, ADMIN)**
+
 
 | Método | Endpoint                               | Acesso               | Status              |
 |--------|----------------------------------------|----------------------|---------------------|
-| POST   | /enderecos                             | USER, MANAGER, ADMIN | ⏳ Planejado|
-| GET    | /enderecos/{id}                        | USER, MANAGER, ADMIN | ⏳ Planejado|
-| GET    | /enderecos/usuario/{usuarioId}         | USER, MANAGER, ADMIN | ⏳ Planejado|
-| PUT    | /enderecos/{id}                        | USER, MANAGER, ADMIN | ⏳ Planejado|
-| DELETE | /enderecos/{id}                        | USER, MANAGER, ADMIN | ⏳ Planejado|
+| POST   | /enderecos                             | MANAGER, ADMIN       | ✅ Pronto           |
+| GET    | /enderecos/{id}                        | MANAGER, ADMIN       | ✅ Pronto           |
+| GET    | /enderecos/usuarios/{usuarioId}        | MANAGER, ADMIN       | ✅ Pronto           |
+| PUT    | /enderecos                             | MANAGER, ADMIN       | ✅ Pronto           |
+| DELETE | /enderecos/{id}                        | ADMIN                | ✅ Pronto           |
+| POST   | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
+| GET    | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ⏳ Planejado        |
+| GET    | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
+| PUT    | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
+| DELETE | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ⏳ Planejado        |
+
+
 
 ### 🛂 Carrinho de Compras
 - `POST /carrinho/adicionar` - Adicionar produto ao carrinho **(USER, MANAGER, ADMIN)**

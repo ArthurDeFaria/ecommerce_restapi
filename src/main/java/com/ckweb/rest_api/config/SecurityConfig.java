@@ -40,9 +40,18 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/usuarios/{id}").hasRole("ADMIN") // regra geral
                 .requestMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
 
-                // Rever regras de acesso a partir deste ponto
-                .requestMatchers("/enderecos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/enderecos").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/enderecos/{id}").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/enderecos/usuarios/{id}").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/enderecos").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/enderecos/{id}").hasAnyRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/enderecos/info").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/enderecos/info/{id}").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/enderecos/info").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/enderecos/info").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/enderecos/info/{id}").hasAnyRole("USER", "MANAGER","ADMIN")
 
+                // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/produtos").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/produtos/{id}").hasRole("ADMIN")
@@ -71,6 +80,12 @@ public class SecurityConfig {
                 .requestMatchers("/favoritos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/itens-pedido/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+
+                .requestMatchers(
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
+                ).permitAll()
 
                 .anyRequest().authenticated()
             )

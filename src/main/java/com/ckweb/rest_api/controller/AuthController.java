@@ -16,6 +16,11 @@ import com.ckweb.rest_api.dto.RegisterRequestAdm;
 import com.ckweb.rest_api.dto.RegisterRequestUser;
 import com.ckweb.rest_api.repository.UserRepository;
 import com.ckweb.rest_api.service.JwtService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.ckweb.rest_api.model.Cargo;
 import com.ckweb.rest_api.model.User;
 
@@ -24,6 +29,7 @@ import lombok.var;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação de Usuários", description = "Operações de autenticação com usuários")
 public class AuthController {
 
     @Autowired
@@ -36,6 +42,7 @@ public class AuthController {
     private JwtService jwtService;
 
     @PostMapping("/login")
+    @Operation(summary = "Endpoint de Login", description = "Retorna o JWT Token que deve ser utilizado emrequisições protegidas pelo Spring Security(Endpoints que tem o cadeado).")
     public ResponseEntity<?> login(@RequestBody @Valid AuthRequest authRequest) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
@@ -46,6 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
+    @Operation(summary = "Endpoint de Registro USER", description = "Utilizado para registrar um usuário comum(Do tipo USER).")
     public ResponseEntity<?> register(@RequestBody @Valid RegisterRequestUser registerRequest) {
         if (this.userRepository.findByEmail(registerRequest.email()) != null) return ResponseEntity.badRequest().build();
 
@@ -67,6 +75,8 @@ public class AuthController {
     }
 
     @PostMapping("/registro/adm")
+    @SecurityRequirement(name = "bearerAuth")
+    @Operation(summary = "Endpoint de registro ADMIN e MANAGER", description = "Utilizado para registrar um usuário com permissões(Do tipo ADMIN ou MANAGER).")
     public ResponseEntity<?> registerAdm(@RequestBody @Valid RegisterRequestAdm registerRequest) {
         if (this.userRepository.findByEmail(registerRequest.email()) != null) return ResponseEntity.badRequest().build();
 
@@ -86,8 +96,4 @@ public class AuthController {
 
         return ResponseEntity.ok().build();
     }
-
-    
-
-
 }
