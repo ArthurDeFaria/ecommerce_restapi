@@ -45,8 +45,7 @@ public class Address {
     private String bairro;
     
     private String complemento;
- 
-    @NotBlank
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private User usuario;

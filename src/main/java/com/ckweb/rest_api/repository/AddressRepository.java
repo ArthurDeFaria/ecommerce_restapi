@@ -11,4 +11,5 @@ import com.ckweb.rest_api.model.User;
 public interface AddressRepository extends JpaRepository<Address, Long> {
     public Optional<Address> findById(Long id);
     public List<Address> findByUsuario(User usuario);
+    public Address findByIdAndUsuario(Long id, User user);
 }

@@ -10,7 +10,7 @@ Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinh
 - **PostgreSQL**
 - **Swagger (Documentação)**
 
-## SWAGGER
+## 📚 Swagger
 A API conta com documentação interativa do Swagger, permitindo visualizar modelos de requisição/resposta e entender a estrutura da API.
 
 ### 🔗 Como acessar a documentação
@@ -73,11 +73,11 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | GET    | /enderecos/usuarios/{usuarioId}        | MANAGER, ADMIN       | ✅ Pronto           |
 | PUT    | /enderecos                             | MANAGER, ADMIN       | ✅ Pronto           |
 | DELETE | /enderecos/{id}                        | ADMIN                | ✅ Pronto           |
-| POST   | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
-| GET    | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ⏳ Planejado        |
-| GET    | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
-| PUT    | /enderecos/info                        | USER, MANAGER, ADMIN | ⏳ Planejado        |
-| DELETE | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ⏳ Planejado        |
+| POST   | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
+| GET    | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ✅ Pronto           |
+| GET    | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
+| PUT    | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
+| DELETE | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ✅ Pronto           |
 
 
 
