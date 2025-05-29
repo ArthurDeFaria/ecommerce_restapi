@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.ckweb.rest_api.model.Cargo;
+import com.ckweb.rest_api.model.Cart;
 import com.ckweb.rest_api.model.User;
 
 import jakarta.validation.Valid;
@@ -69,6 +70,12 @@ public class AuthController {
             Cargo.USER
         );
 
+        Cart carrinho = Cart.builder()
+            .usuario(newUser)
+            .build();
+            
+        newUser.setCarrinho(carrinho);
+
         this.userRepository.save(newUser);
 
         return ResponseEntity.ok().build();
@@ -91,6 +98,12 @@ public class AuthController {
             registerRequest.telefone(),
             registerRequest.cargo()
         );
+
+        Cart carrinho = Cart.builder()
+            .usuario(newUser)
+            .build();
+            
+        newUser.setCarrinho(carrinho);
 
         this.userRepository.save(newUser);
 

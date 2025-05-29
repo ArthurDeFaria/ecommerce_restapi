@@ -30,7 +30,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/auth/registro", "/auth/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/auth/registro-adm").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/auth/registro/adm").hasRole("ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/usuarios/info").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/usuarios/info").hasAnyRole("USER", "MANAGER", "ADMIN")
