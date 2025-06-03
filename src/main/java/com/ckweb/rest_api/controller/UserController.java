@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ckweb.rest_api.dto.UserAutoUpdateDTO;
-import com.ckweb.rest_api.dto.UserGetDTO;
-import com.ckweb.rest_api.dto.UserUpdateDTO;
+import com.ckweb.rest_api.dto.user.UserAutoUpdateDTO;
+import com.ckweb.rest_api.dto.user.UserGetDTO;
+import com.ckweb.rest_api.dto.user.UserUpdateDTO;
 import com.ckweb.rest_api.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;

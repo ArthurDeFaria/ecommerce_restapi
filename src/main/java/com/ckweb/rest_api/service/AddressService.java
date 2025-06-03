@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ckweb.rest_api.dto.AddressGetDTO;
-import com.ckweb.rest_api.dto.AddressPostDTO;
-import com.ckweb.rest_api.dto.AddressPutDTO;
-import com.ckweb.rest_api.dto.AddressUserDTO;
+import com.ckweb.rest_api.dto.address.AddressGetDTO;
+import com.ckweb.rest_api.dto.address.AddressPostDTO;
+import com.ckweb.rest_api.dto.address.AddressPutDTO;
+import com.ckweb.rest_api.dto.address.AddressUserDTO;
 import com.ckweb.rest_api.model.Address;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.AddressRepository;

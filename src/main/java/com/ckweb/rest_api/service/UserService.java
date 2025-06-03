@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ckweb.rest_api.dto.UserAutoUpdateDTO;
-import com.ckweb.rest_api.dto.UserGetDTO;
-import com.ckweb.rest_api.dto.UserUpdateDTO;
+import com.ckweb.rest_api.dto.user.UserAutoUpdateDTO;
+import com.ckweb.rest_api.dto.user.UserGetDTO;
+import com.ckweb.rest_api.dto.user.UserUpdateDTO;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.UserRepository;
 

@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ckweb.rest_api.dto.AuthRequest;
-import com.ckweb.rest_api.dto.AuthResponse;
-import com.ckweb.rest_api.dto.RegisterRequestAdm;
-import com.ckweb.rest_api.dto.RegisterRequestUser;
 import com.ckweb.rest_api.repository.UserRepository;
 import com.ckweb.rest_api.service.JwtService;
 
@@ -21,9 +17,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import com.ckweb.rest_api.model.Cargo;
+import com.ckweb.rest_api.dto.user.AuthRequest;
+import com.ckweb.rest_api.dto.user.AuthResponse;
+import com.ckweb.rest_api.dto.user.RegisterRequestAdm;
+import com.ckweb.rest_api.dto.user.RegisterRequestUser;
 import com.ckweb.rest_api.model.Cart;
 import com.ckweb.rest_api.model.User;
+import com.ckweb.rest_api.model.enumeration.Cargo;
 
 import jakarta.validation.Valid;
 import lombok.var;

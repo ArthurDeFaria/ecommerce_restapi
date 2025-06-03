@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.model;
+package com.ckweb.rest_api.model.enumeration;
 
 public enum Cargo{
     USER("user"),

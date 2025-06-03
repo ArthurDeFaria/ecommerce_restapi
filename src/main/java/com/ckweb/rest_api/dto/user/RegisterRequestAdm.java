@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.dto;
+package com.ckweb.rest_api.dto.user;
 
 import com.ckweb.rest_api.model.Cargo;
 

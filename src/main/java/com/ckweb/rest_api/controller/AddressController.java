@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ckweb.rest_api.dto.AddressPostDTO;
-import com.ckweb.rest_api.dto.AddressPutDTO;
-import com.ckweb.rest_api.dto.AddressUserDTO;
+import com.ckweb.rest_api.dto.address.AddressPostDTO;
+import com.ckweb.rest_api.dto.address.AddressPutDTO;
+import com.ckweb.rest_api.dto.address.AddressUserDTO;
 import com.ckweb.rest_api.service.AddressService;
 
 import io.swagger.v3.oas.annotations.Operation;
