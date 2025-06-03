@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,23 +18,37 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "carrinho")
+@Table(name = "pedido")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Cart {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    private String dataPedido;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private User usuario;
 
-    @OneToMany(mappedBy = "carrinho")
-    private List<CartItem> itens;
+    @ManyToOne
+    @JoinColumn(name = "cupom_id")
+    private Coupon cupom;
 
+    @OneToOne
+    @JoinColumn(name = "pagamento_id")
+    private Payment pagamento;
+
+    @OneToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment envio;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<OrderItem> itensPedido;
+    
 }

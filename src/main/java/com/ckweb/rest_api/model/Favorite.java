@@ -1,14 +1,11 @@
 package com.ckweb.rest_api.model;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,23 +14,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "carrinho")
+@Table(name = "favorito")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Cart {
+public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private User usuario;
 
-    @OneToMany(mappedBy = "carrinho")
-    private List<CartItem> itens;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Product produto;
+
+    private String data_adicionado;
 
 }

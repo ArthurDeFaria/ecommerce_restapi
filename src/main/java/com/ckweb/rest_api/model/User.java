@@ -60,6 +60,18 @@ public class User implements UserDetails{
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart carrinho;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> avaliacoes;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Favorite> favoritos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<User_Coupon> cuponsUsados;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> pedidos;
+
     public User(String nome, String email, String senha, String cpf, String dataNascimento, String telefone, Cargo cargo) {
         this.nome = nome;
         this.email = email;

@@ -1,5 +1,7 @@
 package com.ckweb.rest_api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -50,6 +53,9 @@ public class Address {
     @JoinColumn(name = "usuario_id", nullable = false)
     private User usuario;
 
+    @OneToMany(mappedBy = "endereco")
+    private List<Shipment> envio;
+
     public Address(String cep, String rua, String numero, String bairro, String complemento, User usuario) {
         this.cep = cep;
         this.rua = rua;
@@ -67,4 +73,17 @@ public class Address {
         this.bairro = bairro;
         this.complemento = complemento;
     }
+
+    public Address(Long id, @NotBlank String cep, @NotBlank String rua, @NotBlank String numero,
+            @NotBlank String bairro, String complemento, User usuario) {
+        this.id = id;
+        this.cep = cep;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.complemento = complemento;
+        this.usuario = usuario;
+    }
+
+    
 }
