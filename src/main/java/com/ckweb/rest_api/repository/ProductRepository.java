@@ -9,6 +9,5 @@ import com.ckweb.rest_api.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     public Optional<Product> findById(Long id);
-    public Optional<Product> findByNome(String nome);
     public Optional<List<Product>> findByCategoria(String categoria);
 }

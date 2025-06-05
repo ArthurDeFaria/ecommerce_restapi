@@ -51,12 +51,15 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/enderecos/info").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/enderecos/info/{id}").hasAnyRole("USER", "MANAGER","ADMIN")
 
-                // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/produtos").hasAnyRole("MANAGER", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/produtos/{id}").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/produtos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/produtos/categoria/{categoria}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/produtos/search").permitAll()
+                .requestMatchers(HttpMethod.GET, "/produtos/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
 
+                // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pedidos/{id}", "/pedidos/usuario/**").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pedidos").hasAnyRole("MANAGER", "ADMIN")

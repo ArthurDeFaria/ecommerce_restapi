@@ -97,19 +97,23 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | DELETE | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ⏳ Planejado   |
 
 ### 📦 Produtos
-- `POST /produtos` - Criar novo produto **(MANAGER, ADMIN)**
 - `GET /produtos` - Listar todos os produtos **(Público)**
+- `GET /produtos/categoria/{categoria}` - Listar produtos por categoria **(Público)**
+- `GET /produtos/search` - Buscar produtos por nome **(Público)**
 - `GET /produtos/{id}` - Obter um produto específico **(Público)**
-- `PUT /produtos/{id}` - Atualizar um produto **(MANAGER, ADMIN)**
+- `POST /produtos` - Criar novo produto **(MANAGER, ADMIN)**
+- `PUT /produtos` - Atualizar produto existente **(MANAGER, ADMIN)**
 - `DELETE /produtos/{id}` - Remover um produto **(ADMIN)**
 
-| Método | Endpoint                               | Acesso         | Status        |
-|--------|----------------------------------------|----------------|---------------|
-| POST   | /produtos                              | MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /produtos                              | Público        | ⏳ Planejado   |
-| GET    | /produtos/{id}                         | Público        | ⏳ Planejado   |
-| PUT    | /produtos/{id}                         | MANAGER, ADMIN | ⏳ Planejado   |
-| DELETE | /produtos/{id}                         | ADMIN          | ⏳ Planejado   |
+| Método | Endpoint                        | Acesso         | Status   |
+| ------ | ------------------------------- | -------------- | -------- |
+| GET    | /produtos                       | Público        | ✅ Pronto |
+| GET    | /produtos/categoria/{categoria} | Público        | ✅ Pronto |
+| GET    | /produtos/search                | Público        | ✅ Pronto |
+| GET    | /produtos/{id}                  | Público        | ✅ Pronto |
+| POST   | /produtos                       | MANAGER, ADMIN | ✅ Pronto |
+| PUT    | /produtos                       | MANAGER, ADMIN | ✅ Pronto |
+| DELETE | /produtos/{id}                  | ADMIN          | ✅ Pronto |
 
 ### ⭐ Favoritos
 - `POST /favoritos` - Adicionar produto aos favoritos **(USER, MANAGER, ADMIN)**
@@ -187,8 +191,3 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 2. Acesse a pasta do projeto: `cd nome-do-projeto`
 3. Crie um arquivo `.env`
 3. Configure as variáveis de ambiente no `.env` com base no `.env.example`
-
-<!-- 4. Execute a aplicação:
-   ```sh
-   ./mvnw spring-boot:run
-   ``` -->

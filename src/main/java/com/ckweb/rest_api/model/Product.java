@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class Product {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -35,9 +35,9 @@ public class Product {
 
     private String descricao;
 
-    private double preco;
+    private Double preco;
 
-    private int quantidade_estoque;
+    private Integer quantidadeEstoque;
 
     private String imagem_url;
 
@@ -52,5 +52,15 @@ public class Product {
 
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
     private OrderItem item_pedido;
+
+    public Product(String nome, String categoria, String descricao, Double preco, Integer quantidadeEstoque,
+            String imagem_url) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.imagem_url = imagem_url;
+    }
 
 }
