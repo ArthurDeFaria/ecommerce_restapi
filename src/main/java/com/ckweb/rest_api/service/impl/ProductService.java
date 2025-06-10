@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.service;
+package com.ckweb.rest_api.service.impl;
 
 import java.util.List;
 import java.util.Optional;

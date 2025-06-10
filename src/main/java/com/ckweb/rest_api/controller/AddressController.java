@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ckweb.rest_api.dto.address.AddressPostDTO;
 import com.ckweb.rest_api.dto.address.AddressPutDTO;
 import com.ckweb.rest_api.dto.address.AddressUserDTO;
-import com.ckweb.rest_api.service.AddressService;
+import com.ckweb.rest_api.service.impl.AddressService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

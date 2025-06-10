@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.service;
+package com.ckweb.rest_api.service.impl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import com.ckweb.rest_api.dto.user.UserGetDTO;
 import com.ckweb.rest_api.dto.user.UserUpdateDTO;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.UserRepository;
+import com.ckweb.rest_api.service.JwtService;
 
 import jakarta.persistence.EntityNotFoundException;
 

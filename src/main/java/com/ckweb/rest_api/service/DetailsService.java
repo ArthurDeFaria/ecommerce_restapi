@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ckweb.rest_api.repository.UserRepository;
 
 @Service
-public class AuthService implements UserDetailsService{
-
+public class DetailsService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
@@ -18,5 +17,4 @@ public class AuthService implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username);
     }
-
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ckweb.rest_api.dto.user.UserAutoUpdateDTO;
 import com.ckweb.rest_api.dto.user.UserGetDTO;
 import com.ckweb.rest_api.dto.user.UserUpdateDTO;
-import com.ckweb.rest_api.service.UserService;
+import com.ckweb.rest_api.service.impl.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ckweb.rest_api.dto.product.ProductGetResponseDTO;
 import com.ckweb.rest_api.dto.product.ProductPostRequestDTO;
 import com.ckweb.rest_api.dto.product.ProductPutRequestDTO;
-import com.ckweb.rest_api.service.ProductService;
+import com.ckweb.rest_api.service.impl.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

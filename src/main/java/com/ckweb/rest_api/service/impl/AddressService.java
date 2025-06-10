@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.service;
+package com.ckweb.rest_api.service.impl;
 
 import java.util.List;
 
@@ -14,9 +14,11 @@ import com.ckweb.rest_api.model.Address;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.AddressRepository;
 import com.ckweb.rest_api.repository.UserRepository;
+import com.ckweb.rest_api.service.JwtService;
+import com.ckweb.rest_api.service.interfaces.AddressServiceInterface;
 
 @Service
-public class AddressService {
+public class AddressService implements AddressServiceInterface {
 
     @Autowired
     private AddressRepository addressRepository;
