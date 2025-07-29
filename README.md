@@ -86,15 +86,15 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 - `GET /carrinho/{usuarioId}` - Obter itens do carrinho **(USER, MANAGER, ADMIN)**
 - `PUT /carrinho/atualizar/{itemId}` - Atualizar quantidade de um item **(USER, MANAGER, ADMIN)**
 - `DELETE /carrinho/remover/{itemId}` - Remover item do carrinho **(USER, MANAGER, ADMIN)**
-- `DELETE /carrinho/{usuarioId}` - Esvaziar carrinho **(USER, MANAGER, ADMIN)**
+- `DELETE /carrinho/limpar` - Esvaziar carrinho **(USER, MANAGER, ADMIN)**
 
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| POST   | /carrinho/adicionar                    | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| PUT    | /carrinho/atualizar/{itemId}           | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| DELETE | /carrinho/remover/{itemId}             | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| DELETE | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| Método | Endpoint                               | Acesso               | Status         |
+|--------|----------------------------------------|----------------------|----------------|
+| POST   | /carrinho/adicionar                    | USER, MANAGER, ADMIN | ✅ Pronto      |
+| GET    | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ✅ Pronto      |
+| PUT    | /carrinho/atualizar/{itemId}           | USER, MANAGER, ADMIN | ✅ Pronto      |
+| DELETE | /carrinho/remover/{itemId}             | USER, MANAGER, ADMIN | ✅ Pronto      |
+| DELETE | /carrinho/limpar                       | USER, MANAGER, ADMIN | ✅ Pronto      |
 
 ### 📦 Produtos
 - `GET /produtos` - Listar todos os produtos **(Público)**
@@ -159,10 +159,10 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 - `GET /envios/{pedidoId}` - Consultar status do envio **(USER, MANAGER, ADMIN)**
 - `PUT /envios/{pedidoId}` - Atualizar status do envio **(MANAGER, ADMIN)**
 
-| Método | Endpoint                               | Acesso             | Status        |
-|--------|----------------------------------------|--------------------|---------------|
+| Método | Endpoint                               | Acesso               | Status        |
+|--------|----------------------------------------|----------------------|---------------|
 | GET    | /envios/{pedidoId}                     | USER, MANAGER, ADMIN | ⏳ Planejado |
-| PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN     | ⏳ Planejado   |
+| PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN       | ⏳ Planejado   |
 
 ### 🎟️ Cupons de Desconto
 - `POST /cupons` - Criar um novo cupom **(ADMIN)**

@@ -44,9 +44,6 @@ public class Product {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Review> avaliacoes;
 
-    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
-    private CartItem item_carrinho;
-
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Favorite> favoritos;
 

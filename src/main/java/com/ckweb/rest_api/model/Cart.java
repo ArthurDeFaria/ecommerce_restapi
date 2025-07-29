@@ -1,7 +1,9 @@
 package com.ckweb.rest_api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +35,8 @@ public class Cart {
     @JoinColumn(name = "usuario_id", nullable = false)
     private User usuario;
 
-    @OneToMany(mappedBy = "carrinho")
-    private List<CartItem> itens;
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<CartItem> itens = new ArrayList<>();
 
 }
