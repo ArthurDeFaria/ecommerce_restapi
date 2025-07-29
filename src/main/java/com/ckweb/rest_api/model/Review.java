@@ -26,7 +26,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int nota;
+    private Integer nota;
 
     private String comentario;
 

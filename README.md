@@ -18,6 +18,8 @@ Após iniciar o projeto localmente, acesse a URL abaixo no navegador:
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 > ⚠️ Certifique-se de que a aplicação esteja rodando e o perfil de desenvolvimento esteja ativado (`dev`). Caso esteja rodando em um servidor, acesse o endpoint `/swagger-ui/index.html`.
 
+<!-- Banco de dados -->
+
 ## 📌 Perfis de Usuário
 - **USER**: Pode criar conta, fazer login, gerenciar carrinho, pedidos e favoritos.
 - **MANAGER**: Pode gerenciar produtos e pedidos.
@@ -181,10 +183,10 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 - `POST /avaliacoes` - Criar uma avaliação para um produto **(USER, MANAGER, ADMIN)**
 - `GET /avaliacoes/{produtoId}` - Listar avaliações de um produto **(Público)**
 
-| Método | Endpoint                               | Acesso             | Status        |
-|--------|----------------------------------------|--------------------|---------------|
-| POST   | /avaliacoes                            | USER, MANAGER, ADMIN | ⏳ Planejado |
-| GET    | /avaliacoes/{produtoId}                | Público            | ⏳ Planejado   |
+| Método | Endpoint                               | Acesso               | Status        |
+|--------|----------------------------------------|----------------------|---------------|
+| GET    | /avaliacoes/{produtoId}                | Público              | ✅ Pronto     |
+| POST   | /avaliacoes                            | USER, MANAGER, ADMIN | ✅ Pronto     |
 
 ## 🛠️ Como Configurar o Projeto
 1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
