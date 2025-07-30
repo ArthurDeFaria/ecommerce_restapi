@@ -64,6 +64,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/avaliacoes").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/avaliacoes/{produtoId}").permitAll()
 
+                .requestMatchers("/favoritos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+
                 // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pedidos/{id}", "/pedidos/usuario/**").hasAnyRole("USER", "MANAGER", "ADMIN")
@@ -79,8 +81,6 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/cupons").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/cupons/{codigo}").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/cupons/{id}").hasRole("ADMIN")
-
-                .requestMatchers("/favoritos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/itens-pedido/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
