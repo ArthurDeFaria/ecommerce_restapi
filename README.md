@@ -124,9 +124,9 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 
 | Método | Endpoint                               | Acesso               | Status        |
 |--------|----------------------------------------|----------------------|---------------|
-| POST   | /favoritos                             | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /favoritos/{usuarioId}                 | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| DELETE | /favoritos/{id}                        | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| POST   | /favoritos                             | USER, MANAGER, ADMIN | ✅ Pronto     |
+| GET    | /favoritos/{usuarioId}                 | USER, MANAGER, ADMIN | ✅ Pronto     |
+| DELETE | /favoritos/{id}                        | USER, MANAGER, ADMIN | ✅ Pronto     |
 
 ### 🛒 Pedidos
 - `POST /pedidos/finalizar` - Criar um novo pedido **(USER, MANAGER, ADMIN)**
