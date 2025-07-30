@@ -18,7 +18,61 @@ Após iniciar o projeto localmente, acesse a URL abaixo no navegador:
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 > ⚠️ Certifique-se de que a aplicação esteja rodando e o perfil de desenvolvimento esteja ativado (`dev`). Caso esteja rodando em um servidor, acesse o endpoint `/swagger-ui/index.html`.
 
-<!-- Banco de dados -->
+## 🗃️ Banco de Dados
+
+Este projeto utiliza **PostgreSQL** como sistema de banco de dados relacional principal, aproveitando sua robustez, performance e compatibilidade com o ecossistema Spring.
+
+### ⚙️ Configuração
+
+A conexão com o banco de dados é feita por meio do arquivo `application.properties`, utilizando variáveis de ambiente carregadas a partir de um arquivo `.env`.
+
+#### ✅ Exemplo de `.env`
+```
+DATASOURCE_URL="jdbc:postgresql://localhost:5432/ecommerce"
+JWT_SECRET="uma_chave_secreta_segura"
+```
+
+### 🔄 Compatibilidade
+> ⚠️ Atenção: Embora o projeto esteja configurado para usar PostgreSQL, ele é compatível com qualquer banco de dados relacional, como MySQL, MariaDB, SQL Server, entre outros.
+Para utilizar outro banco:
+1. Substitua a dependência do PostgreSQL no pom.xml pela do banco desejado.
+2. Altere a variável DATASOURCE_URL no .env para a URL de conexão do novo banco.
+
+### 🧱 Estrutura do Banco
+
+As tabelas do banco de dados são geradas automaticamente com base nas entidades definidas no projeto, utilizando **JPA** e **Hibernate**.
+
+#### 📐 Modelagem
+
+A modelagem foi feita seguindo boas práticas de normalização e mapeamento relacional:
+
+- **Chaves primárias** geradas automaticamente com `@Id` e `@GeneratedValue`.
+- **Relacionamentos entre entidades** usando:
+  - `@OneToOne`
+  - `@OneToMany`
+  - `@ManyToOne`
+  - `@ManyToMany`
+- **Campos obrigatórios e únicos** com `@Column(nullable = false, unique = true)`
+- **Enums** mapeados com `@Enumerated(EnumType.STRING)`
+
+#### 🗂️ Tabelas principais
+
+- `usuario` — Armazena dados de autenticação, nome, email, senha, roles, etc.
+- `endereco` — Endereços associados aos usuários.
+- `produto` — Catálogo de produtos disponíveis para venda.
+- `carrinho` — Carrinho de compras de cada usuário.
+- `item_carrinho` — Produtos adicionados ao carrinho.
+- `pedido` — Pedidos finalizados pelos usuários.
+- `item_pedido` — Produtos incluídos em um pedido.
+- `cupom` — Cupons de desconto disponíveis para uso.
+- `pagamento` — Informações de pagamento dos pedidos.
+- `envios` — Informações de envio e status da entrega.
+- `avaliacao` — Avaliações deixadas pelos usuários nos produtos.
+- `favorito` — Produtos marcados como favoritos por usuários.
+- `usuario_cupom` — Cupons utilizados pelos usuários.
+
+> ⚠️ A estrutura do banco é atualizada automaticamente em tempo de execução quando a propriedade `spring.jpa.hibernate.ddl-auto=update` está configurada.  
+Para ambientes de produção, recomenda-se alterar para `validate` ou utilizar ferramentas de versionamento como **Flyway** ou **Liquibase**.
 
 ## 📌 Perfis de Usuário
 - **USER**: Pode criar conta, fazer login, gerenciar carrinho, pedidos e favoritos.
@@ -124,8 +178,8 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 
 | Método | Endpoint                               | Acesso               | Status        |
 |--------|----------------------------------------|----------------------|---------------|
-| POST   | /favoritos                             | USER, MANAGER, ADMIN | ✅ Pronto     |
 | GET    | /favoritos/{usuarioId}                 | USER, MANAGER, ADMIN | ✅ Pronto     |
+| POST   | /favoritos                             | USER, MANAGER, ADMIN | ✅ Pronto     |
 | DELETE | /favoritos/{id}                        | USER, MANAGER, ADMIN | ✅ Pronto     |
 
 ### 🛒 Pedidos
