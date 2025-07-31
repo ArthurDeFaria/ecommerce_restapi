@@ -33,7 +33,7 @@ public class ProductService {
             product.getPeso(),
             product.getAltura(),
             product.getLargura(),
-            product.getComprimento(
+            product.getComprimento()
             ))
             .toList();
         return ResponseEntity.ok().body(productDTOs);
@@ -95,7 +95,7 @@ public class ProductService {
                 product.getPeso(),
                 product.getAltura(),
                 product.getLargura(),
-                product.getComprimento(
+                product.getComprimento()
             ))
             .toList();
 
