@@ -11,7 +11,11 @@ public record ProductGetResponseDTO(
     Double preco,
     String categoria,
     String imagemUrl,
-    List<Review> avaliacoes
+    List<Review> avaliacoes,
+    Double peso,
+    Double altura,
+    Double largura,
+    Double comprimento
 ) {
     
 }

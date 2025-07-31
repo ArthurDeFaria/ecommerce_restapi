@@ -29,7 +29,11 @@ public class ProductService {
             product.getPreco(),
             product.getCategoria(),
             product.getImagem_url(),
-            product.getAvaliacoes()
+            product.getAvaliacoes(),
+            product.getPeso(),
+            product.getAltura(),
+            product.getLargura(),
+            product.getComprimento(
             ))
             .toList();
         return ResponseEntity.ok().body(productDTOs);
@@ -45,7 +49,11 @@ public class ProductService {
                 product.getPreco(),
                 product.getCategoria(),
                 product.getImagem_url(),
-                product.getAvaliacoes()
+                product.getAvaliacoes(),
+                product.getPeso(),
+                product.getAltura(),
+                product.getLargura(),
+                product.getComprimento()
                 );
                 return ResponseEntity.ok().body(dto);
             })
@@ -62,7 +70,11 @@ public class ProductService {
             product.getPreco(),
             product.getCategoria(),
             product.getImagem_url(),
-            product.getAvaliacoes()
+            product.getAvaliacoes(),
+            product.getPeso(),
+            product.getAltura(),
+            product.getLargura(),
+            product.getComprimento()
             ))
             .toList();
         return ResponseEntity.ok().body(productDTOs);
@@ -79,7 +91,11 @@ public class ProductService {
                 product.getPreco(),
                 product.getCategoria(),
                 product.getImagem_url(),
-                product.getAvaliacoes()
+                product.getAvaliacoes(),
+                product.getPeso(),
+                product.getAltura(),
+                product.getLargura(),
+                product.getComprimento(
             ))
             .toList();
 
@@ -97,7 +113,11 @@ public class ProductService {
             product.descricao(),
             product.preco(),
             product.quantidadeEstoque(),
-            product.imagemUrl()
+            product.imagemUrl(),
+            product.peso(),
+            product.altura(),
+            product.largura(),
+            product.comprimento()
         );
         
         productRepository.save(newProduct);
@@ -118,6 +138,10 @@ public class ProductService {
         updatedProduct.setPreco(product.preco());
         updatedProduct.setQuantidadeEstoque(product.quantidadeEstoque());
         updatedProduct.setImagem_url(product.imagemUrl());
+        updatedProduct.setPeso(product.peso());
+        updatedProduct.setAltura(product.altura());
+        updatedProduct.setLargura(product.largura());
+        updatedProduct.setComprimento(product.comprimento());
         
         productRepository.save(updatedProduct);
         return ResponseEntity.ok().build();

@@ -6,7 +6,11 @@ public record ProductPostRequestDTO(
     String descricao,
     double preco,
     int quantidadeEstoque,
-    String imagemUrl
+    String imagemUrl,
+    Double peso,
+    Double altura,
+    Double largura,
+    Double comprimento
 ) {
     
 }

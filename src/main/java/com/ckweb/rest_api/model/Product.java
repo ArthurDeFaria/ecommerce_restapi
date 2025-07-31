@@ -41,6 +41,14 @@ public class Product {
 
     private String imagem_url;
 
+    private Double peso;
+
+    private Double altura;
+
+    private Double largura;
+
+    private Double comprimento;
+
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Review> avaliacoes;
 
@@ -51,13 +59,17 @@ public class Product {
     private OrderItem item_pedido;
 
     public Product(String nome, String categoria, String descricao, Double preco, Integer quantidadeEstoque,
-            String imagem_url) {
+            String imagem_url, Double peso, Double altura, Double largura, Double comprimento) {
         this.nome = nome;
         this.categoria = categoria;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.imagem_url = imagem_url;
+        this.peso = peso;
+        this.altura = altura;
+        this.largura = largura;
+        this.comprimento = comprimento;
     }
 
 }
