@@ -34,8 +34,6 @@ public class User_Coupon {
     @JoinColumn(name = "cupom_id")
     private Coupon cupom;
 
-    private int usoMaximoIndividual;
-
     private int usoIndividual;
 
 }

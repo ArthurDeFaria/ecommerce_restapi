@@ -1,6 +1,10 @@
 package com.ckweb.rest_api.model;
 
+import com.ckweb.rest_api.model.enumeration.PaymentStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,13 +29,16 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Double valor;
+
     private String formaPagamento;
 
-    private String statusPagamento;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus statusPagamento;
 
     private String dataPagamento;
 
-    private String codTransacao;
+    // private String codTransacao;
     
     @OneToOne(mappedBy = "pagamento")
     private Order pedido;

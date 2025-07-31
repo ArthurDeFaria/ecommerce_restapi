@@ -33,7 +33,7 @@ JWT_SECRET="uma_chave_secreta_segura"
 ```
 
 ### 🔄 Compatibilidade
-> ⚠️ Atenção: Embora o projeto esteja configurado para usar PostgreSQL, ele é compatível com qualquer banco de dados relacional, como MySQL, MariaDB, SQL Server, entre outros.
+> ⚠️ Embora o projeto esteja configurado para usar PostgreSQL, ele é compatível com qualquer banco de dados relacional, como MySQL, MariaDB, SQL Server, entre outros.
 Para utilizar outro banco:
 1. Substitua a dependência do PostgreSQL no pom.xml pela do banco desejado.
 2. Altere a variável DATASOURCE_URL no .env para a URL de conexão do novo banco.
@@ -200,16 +200,16 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 
 | Método | Endpoint                               | Acesso               | Status        |
 |--------|----------------------------------------|----------------------|---------------|
-| GET    | /itens-pedido/{pedidoId}               | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| GET    | /itens-pedido/{pedidoId}               | USER, MANAGER, ADMIN | ⏳ Planejado  |
 
 ### 💳 Pagamento
 - `POST /pagamentos` - Processar pagamento **(USER, MANAGER, ADMIN)**
 - `GET /pagamentos/{pedidoId}` - Obter status do pagamento **(USER, MANAGER, ADMIN)**
 
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| POST   | /pagamentos                            | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| Método | Endpoint                               | Acesso               | Status         |
+|--------|----------------------------------------|----------------------|----------------|
 | GET    | /pagamentos/{pedidoId}                 | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| POST   | /pagamentos                            | USER, MANAGER, ADMIN | ⏳ Planejado   |
 
 ### 🚚 Envio
 - `GET /envios/{pedidoId}` - Consultar status do envio **(USER, MANAGER, ADMIN)**
@@ -217,8 +217,8 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 
 | Método | Endpoint                               | Acesso               | Status        |
 |--------|----------------------------------------|----------------------|---------------|
-| GET    | /envios/{pedidoId}                     | USER, MANAGER, ADMIN | ⏳ Planejado |
-| PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN       | ⏳ Planejado   |
+| GET    | /envios/{pedidoId}                     | USER, MANAGER, ADMIN | ⏳ Planejado  |
+| PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN       | ⏳ Planejado  |
 
 ### 🎟️ Cupons de Desconto
 - `POST /cupons` - Criar um novo cupom **(ADMIN)**
@@ -226,12 +226,12 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 - `GET /cupons/{codigo}` - Verificar se um cupom é válido **(USER, MANAGER, ADMIN)**
 - `DELETE /cupons/{id}` - Excluir um cupom **(ADMIN)**
 
-| Método | Endpoint                               | Acesso             | Status        |
-|--------|----------------------------------------|--------------------|---------------|
-| POST   | /cupons                                | ADMIN              | ⏳ Planejado   |
-| GET    | /cupons                                | MANAGER, ADMIN     | ⏳ Planejado   |
-| GET    | /cupons/{codigo}                       | USER, MANAGER, ADMIN | ⏳ Planejado |
-| DELETE | /cupons/{id}                           | ADMIN              | ⏳ Planejado   |
+| Método | Endpoint                               | Acesso               | Status         |
+|--------|----------------------------------------|----------------------|----------------|
+| POST   | /cupons                                | ADMIN                | ⏳ Planejado   |
+| GET    | /cupons                                | MANAGER, ADMIN       | ⏳ Planejado   |
+| GET    | /cupons/{codigo}                       | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| DELETE | /cupons/{id}                           | ADMIN                | ⏳ Planejado   |
 
 ### 📝 Avaliações de Produtos
 - `POST /avaliacoes` - Criar uma avaliação para um produto **(USER, MANAGER, ADMIN)**

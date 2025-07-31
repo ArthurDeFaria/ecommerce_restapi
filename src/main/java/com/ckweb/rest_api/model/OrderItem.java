@@ -35,5 +35,8 @@ public class OrderItem {
     @JoinColumn(name = "produto_id")
     private Product produto;
 
-    private int quantidade;
+    private Double precoUnitario;
+
+    private Integer quantidade;
+
 }

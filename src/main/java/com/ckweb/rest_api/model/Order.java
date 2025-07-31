@@ -1,7 +1,9 @@
 package com.ckweb.rest_api.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +34,12 @@ public class Order {
 
     private String dataPedido;
 
+    private BigDecimal totalProdutos;
+
+    private BigDecimal totalFrete;
+
+    private BigDecimal totalPedido;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private User usuario;
@@ -40,15 +48,15 @@ public class Order {
     @JoinColumn(name = "cupom_id")
     private Coupon cupom;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pagamento_id")
     private Payment pagamento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipment_id")
     private Shipment envio;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<OrderItem> itensPedido;
     
 }

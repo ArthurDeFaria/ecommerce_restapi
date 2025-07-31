@@ -2,7 +2,11 @@ package com.ckweb.rest_api.model;
 
 import java.util.List;
 
+import com.ckweb.rest_api.model.enumeration.CouponType;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,13 +33,16 @@ public class Coupon {
 
     private String codigo;
 
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private CouponType tipo;
 
     private Double valor;
 
     private String dataValidade;
 
-    private String usoMaximo;
+    private Integer usoMaximo;
+
+    private Integer usoMaximoIndividual;
 
     private Boolean ativo;
 

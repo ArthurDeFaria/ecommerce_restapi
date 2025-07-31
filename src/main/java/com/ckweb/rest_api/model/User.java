@@ -113,9 +113,4 @@ public class User implements UserDetails{
     public String getPassword() {
         return this.senha;
     }
-
-    public User orElseThrow(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-    }
 }
