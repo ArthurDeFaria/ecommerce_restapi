@@ -9,10 +9,29 @@ Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinh
 - **JPA/Hibernate**
 - **PostgreSQL**
 - **Swagger (Documentação)**
+- **API de cotação de frete([Superfrete](https://superfrete.readme.io/reference/primeiros-passos))**
+- **Gateway de Pagamento([MercadoPago](https://www.mercadopago.com.br/developers/pt/docs))**
 
 ## 📚 Swagger
 A API conta com documentação interativa do Swagger, permitindo visualizar modelos de requisição/resposta e entender a estrutura da API.
 
+## 🔗 Integração com SuperFrete
+
+Este projeto integra a API da [SuperFrete](https://superfrete.com.br/) para realizar cotações de frete em tempo real, permitindo ao usuário visualizar opções de envio como SEDEX, PAC e Mini Envios, de forma simples e automatizada.
+
+A API da SuperFrete é utilizada para calcular valores de envio com base em:
+- CEP de origem e destino
+- Peso e dimensões do pacote
+- Valor segurado
+- Serviços adicionais (mão própria, aviso de recebimento, etc.)
+
+### 💼 Funcionalidades Implementadas
+
+- Criação de preferências de pagamento
+- Redirecionamento para checkout Mercado Pago
+- Recebimento de notificações via **webhook**
+- Validação de status do pagamento (approved, pending, rejected)
+- Suporte a pagamento via cartão, Pix e boleto
 ### 🔗 Como acessar a documentação
 Após iniciar o projeto localmente, acesse a URL abaixo no navegador:
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
@@ -30,6 +49,7 @@ A conexão com o banco de dados é feita por meio do arquivo `application.proper
 ```
 DATASOURCE_URL="jdbc:postgresql://localhost:5432/ecommerce"
 JWT_SECRET="uma_chave_secreta_segura"
+SUPER_FRETE_TOKEN="token_gerado_da_super_frete"
 ```
 
 ### 🔄 Compatibilidade
