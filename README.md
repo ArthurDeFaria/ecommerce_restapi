@@ -64,7 +64,8 @@ SUPER_FRETE_TOKEN="token_gerado_da_super_frete"
 > ⚠️ Embora o projeto esteja configurado para usar PostgreSQL, ele é compatível com qualquer banco de dados relacional, como MySQL, MariaDB, SQL Server, entre outros.
 Para utilizar outro banco:
 1. Substitua a dependência do PostgreSQL no pom.xml pela do banco desejado.
-2. Altere a variável DATASOURCE_URL no .env para a URL de conexão do novo banco.
+2. Altere a variável `DATASOURCE_URL` no arquivo .env para a URL de conexão do novo banco.
+3. Altere a variável `spring.datasource.driver-class-name` no arquivo .properties do projeto para a do banco escolhido.
 
 ### 🧱 Estrutura do Banco
 
@@ -246,6 +247,7 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | Método | Endpoint                               | Acesso               | Status        |
 |--------|----------------------------------------|----------------------|---------------|
 | GET    | /envios/{pedidoId}                     | USER, MANAGER, ADMIN | ⏳ Planejado  |
+| POST   | /envios/cotarfrete                     | Público              | ✅ Pronto     |
 | PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN       | ⏳ Planejado  |
 
 ### 🎟️ Cupons de Desconto

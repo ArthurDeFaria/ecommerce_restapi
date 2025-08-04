@@ -47,7 +47,7 @@ public class Coupon {
     private Boolean ativo;
 
     @OneToMany(mappedBy = "cupom")
-    private List<User_Coupon> userCoupon;
+    private List<UserCoupon> userCoupon;
 
     @OneToMany(mappedBy = "cupom")
     private List<Order> pedidos;

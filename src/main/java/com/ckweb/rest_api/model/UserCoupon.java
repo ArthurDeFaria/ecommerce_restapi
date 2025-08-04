@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User_Coupon {
+public class UserCoupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

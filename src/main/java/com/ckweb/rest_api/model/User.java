@@ -69,7 +69,7 @@ public class User implements UserDetails{
     private List<Favorite> favoritos;
 
     @OneToMany(mappedBy = "usuario")
-    private List<User_Coupon> cuponsUsados;
+    private List<UserCoupon> cuponsUsados;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> pedidos;
