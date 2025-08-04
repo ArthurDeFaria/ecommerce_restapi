@@ -22,7 +22,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/avaliacoes")
-// 
 @Tag(name = "Avaliações", description = "Operações com as avaliações dos produtos")
 public class ReviewController {
 
@@ -30,7 +29,7 @@ public class ReviewController {
     ReviewService reviewService;
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar avaliações por ID", description = "Retorna uma lista de avaliações pelo ID do produto")
+    @Operation(summary = "Buscar avaliações por ID de produto", description = "Retorna uma lista de avaliações pelo ID do produto")
     public ResponseEntity<List<ReviewResponseDTO>> findAllById(@PathVariable Long id) {
         List<ReviewResponseDTO> response = reviewService.findAllById(id);
         return ResponseEntity.ok(response);

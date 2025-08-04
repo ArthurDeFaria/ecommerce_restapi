@@ -66,6 +66,8 @@ public class SecurityConfig {
 
                 .requestMatchers("/favoritos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
+                .requestMatchers(HttpMethod.POST, "/envio/cotarfrete").permitAll()
+                
                 // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pedidos/{id}", "/pedidos/usuario/**").hasAnyRole("USER", "MANAGER", "ADMIN")
