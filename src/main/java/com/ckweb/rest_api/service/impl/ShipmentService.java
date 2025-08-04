@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ckweb.rest_api.component.SuperFreteClient;
-import com.ckweb.rest_api.dto.shipment.QuoteRequestDTO;
-import com.ckweb.rest_api.dto.shipment.QuoteResponseDTO;
 import com.ckweb.rest_api.dto.shipment.quote.AddressDTO;
 import com.ckweb.rest_api.dto.shipment.quote.OptionsDTO;
 import com.ckweb.rest_api.dto.shipment.quote.PackageDTO;
+import com.ckweb.rest_api.dto.shipment.quote.QuoteRequestDTO;
+import com.ckweb.rest_api.dto.shipment.quote.QuoteResponseDTO;
 import com.ckweb.rest_api.model.Product;
 import com.ckweb.rest_api.repository.ProductRepository;
 import com.ckweb.rest_api.service.interfaces.ShipmentServiceInterface;

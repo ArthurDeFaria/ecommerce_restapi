@@ -1,8 +1,5 @@
-package com.ckweb.rest_api.dto.shipment;
+package com.ckweb.rest_api.dto.shipment.quote;
 
-import com.ckweb.rest_api.dto.shipment.quote.AddressDTO;
-import com.ckweb.rest_api.dto.shipment.quote.OptionsDTO;
-import com.ckweb.rest_api.dto.shipment.quote.PackageDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record QuoteRequestDTO(

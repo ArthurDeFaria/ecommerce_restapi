@@ -1,4 +1,4 @@
-package com.ckweb.rest_api.dto.shipment;
+package com.ckweb.rest_api.dto.shipment.quote;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

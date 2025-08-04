@@ -3,14 +3,14 @@
 Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinho de compras, pedidos, pagamentos e mais.
 
 ## 🚀 Tecnologias
-- **Java 24**
+- **Java**
 - **Spring Boot**
 - **Spring Security (JWT)**
 - **JPA/Hibernate**
-- **PostgreSQL**
+- **PostgreSQL(Opcional - Ler o tópico 🔄 Compatibilidade)**
 - **Swagger (Documentação)**
-- **API de cotação de frete([Superfrete](https://superfrete.readme.io/reference/primeiros-passos))**
-- **Gateway de Pagamento([MercadoPago](https://www.mercadopago.com.br/developers/pt/docs))**
+- **API de cotação de frete ([Superfrete](https://superfrete.com.br/))**
+- **Gateway de Pagamento ([MercadoPago](https://www.mercadopago.com.br/developers/pt))**
 
 ## 📚 Swagger
 A API conta com documentação interativa do Swagger, permitindo visualizar modelos de requisição/resposta e entender a estrutura da API.
@@ -24,6 +24,14 @@ A API da SuperFrete é utilizada para calcular valores de envio com base em:
 - Peso e dimensões do pacote
 - Valor segurado
 - Serviços adicionais (mão própria, aviso de recebimento, etc.)
+
+<!-- ## 🔗 Integração com Mercado Pago
+
+Este projeto utiliza a API oficial do [Mercado Pago](https://www.mercadopago.com.br/developers/pt) para processar pagamentos de forma segura e eficiente. A integração permite que os usuários realizem transações diretamente pela aplicação, utilizando diversos métodos de pagamento.
+
+### 🔐 Autenticação
+
+A autenticação com o Mercado Pago é feita por meio de **Access Token**, obtido a partir do [Painel de Desenvolvedor](https://www.mercadopago.com.br/developers/panel). No ambiente de desenvolvimento (sandbox), é possível simular pagamentos e testar diferentes fluxos de compra. -->
 
 ### 💼 Funcionalidades Implementadas
 
