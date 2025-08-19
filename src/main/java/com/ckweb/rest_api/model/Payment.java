@@ -31,6 +31,8 @@ public class Payment {
 
     private Double valor;
 
+    Integer parcelas;
+
     private String formaPagamento;
 
     @Enumerated(EnumType.STRING)

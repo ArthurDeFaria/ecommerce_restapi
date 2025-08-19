@@ -68,11 +68,13 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.POST, "/envio/cotarfrete").permitAll()
                 
-                // Rever regras de acesso a partir deste ponto
-                .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/pedidos/{id}", "/pedidos/usuario/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/pedidos/{id}").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/pedidos/usuario/{id}").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pedidos").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
 
+                // Rever regras de acesso a partir deste ponto
+                .requestMatchers(HttpMethod.POST, "/pagamentos/webhook").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pagamentos").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pagamentos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 

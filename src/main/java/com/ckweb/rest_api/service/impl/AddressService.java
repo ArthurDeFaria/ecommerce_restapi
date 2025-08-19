@@ -48,12 +48,8 @@ public class AddressService implements AddressServiceInterface {
             optionalUser.get()
         );
 
-        // try {
         addressRepository.save(address);
         return ResponseEntity.ok().build();
-        // } catch (Exception e) {
-        //     return ResponseEntity.badRequest().body("Erro ao salvar o endereço: " + e.getMessage());
-        // }
     }
 
     public ResponseEntity<?> findById(Long id){
@@ -147,8 +143,6 @@ public class AddressService implements AddressServiceInterface {
             return ResponseEntity.badRequest().body("Erro ao deletar endereço");
         }
     }
-
-    //
 
     public ResponseEntity<?> saveUserAddress(String token, AddressUserDTO address) {
         String cleanedToken = token.replace("Bearer ", "");

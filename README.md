@@ -175,6 +175,7 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 
 | Método | Endpoint                               | Acesso               | Status         |
 |--------|----------------------------------------|----------------------|----------------|
+| POST   | /carrinho/info                         | USER, MANAGER, ADMIN | ✅ Pronto      |
 | POST   | /carrinho/adicionar                    | USER, MANAGER, ADMIN | ✅ Pronto      |
 | GET    | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ✅ Pronto      |
 | PUT    | /carrinho/atualizar/{itemId}           | USER, MANAGER, ADMIN | ✅ Pronto      |
@@ -217,12 +218,12 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 - `GET /pedidos/usuario/{usuarioId}` - Listar pedidos do usuário **(USER, MANAGER, ADMIN)**
 - `GET /pedidos` - Listar todos os pedidos **(MANAGER, ADMIN)**
 
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /pedidos/{id}                          | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /pedidos/usuario/{usuarioId}           | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| GET    | /pedidos                               | MANAGER, ADMIN       | ⏳ Planejado   |
+| Método | Endpoint                               | Acesso               | Status         |
+|--------|----------------------------------------|----------------------|----------------|
+| GET    | /pedidos                               | MANAGER, ADMIN       | ✅ Pronto      |
+| GET    | /pedidos/{id}                          | USER, MANAGER, ADMIN | ✅ Pronto      |
+| GET    | /pedidos/usuario/{usuarioId}           | MANAGER, ADMIN       | ✅ Pronto      |
+| POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | 🫥 Incompleto  |
 
 ### 📋 Itens do Pedido
 - `GET /itens-pedido/{pedidoId}` - Listar itens de um pedido **(USER, MANAGER, ADMIN)**
