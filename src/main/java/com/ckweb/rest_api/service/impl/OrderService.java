@@ -41,9 +41,6 @@ public class OrderService implements OrderServiceInterface {
         private ProductRepository productRepository;
 
         @Autowired
-        private AddressRepository addressRepository;
-
-        @Autowired
         private CartRepository cartRepository;
 
         @Autowired

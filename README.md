@@ -239,7 +239,9 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | Método | Endpoint                               | Acesso               | Status         |
 |--------|----------------------------------------|----------------------|----------------|
 | GET    | /pagamentos/{pedidoId}                 | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| POST   | /pagamentos                            | USER, MANAGER, ADMIN | ⏳ Planejado   |
+| POST   | /pagamentos                            | USER, MANAGER, ADMIN | 🫥 Incompleto  |
+| POST   | /pagamentos/webhooks                   | USER, MANAGER, ADMIN | 🫥 Incompleto  |
+
 
 ### 🚚 Envio
 - `GET /envios/{pedidoId}` - Consultar status do envio **(USER, MANAGER, ADMIN)**

@@ -74,7 +74,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
 
                 // Rever regras de acesso a partir deste ponto
-                .requestMatchers(HttpMethod.POST, "/pagamentos/webhook").permitAll()
+                .requestMatchers(HttpMethod.POST, "/pagamentos/webhooks").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pagamentos").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/pagamentos/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
@@ -88,11 +88,14 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET, "/itens-pedido/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
+                .requestMatchers(HttpMethod.POST, "/pagamentos").permitAll()
                 .requestMatchers(
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
+
+                
 
                 .anyRequest().authenticated()
             )
