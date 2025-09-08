@@ -15,5 +15,4 @@ public enum PaymentStatus {
     public String getStatus() {
         return status;
     }
-    
 }

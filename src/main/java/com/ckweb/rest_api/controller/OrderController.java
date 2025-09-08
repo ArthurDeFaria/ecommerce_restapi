@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ckweb.rest_api.dto.order.FinalizeOrderResponseDTO;
 import com.ckweb.rest_api.dto.order.OrderPostRequestDTO;
 import com.ckweb.rest_api.dto.order.OrderResponseDTO;
 import com.ckweb.rest_api.service.impl.OrderService;
@@ -52,8 +53,8 @@ public class OrderController {
 
     @PostMapping("/finalizar")
     @Operation(summary = "Cria um novo pedido", description = "Cria um novo pedido no banco de dados a partir dos dados no body.")
-    public ResponseEntity<OrderResponseDTO> save(@RequestHeader("Authorization") String token, @RequestBody OrderPostRequestDTO orderPostDTO) {
-        OrderResponseDTO response = orderService.save(token, orderPostDTO);
+    public ResponseEntity<FinalizeOrderResponseDTO> save(@RequestHeader("Authorization") String token, @RequestBody OrderPostRequestDTO orderPostDTO) {
+        FinalizeOrderResponseDTO response = orderService.createOrderAndPaymentPreference(token, orderPostDTO);
         return ResponseEntity.ok(response);
     }
     

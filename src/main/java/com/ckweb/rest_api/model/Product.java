@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,8 +54,8 @@ public class Product {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Favorite> favoritos;
 
-    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
-    private OrderItem item_pedido;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<OrderItem> item_pedido;
 
     public Product(String nome, String categoria, String descricao, Double preco, Integer quantidadeEstoque,
             String imagem_url, Double peso, Double altura, Double largura, Double comprimento) {

@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
+@Builder
 public record CreatePreferenceRequestDTO(
     Long userId,
 

@@ -20,7 +20,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     public ResponseEntity<List<ProductGetResponseDTO>> findAll() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAllWithAvaliacoes();
         List<ProductGetResponseDTO> productDTOs = products.stream()
             .map(product -> new ProductGetResponseDTO(
             product.getId(),
