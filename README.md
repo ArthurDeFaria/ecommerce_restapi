@@ -2,6 +2,33 @@
 
 Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinho de compras, pedidos, pagamentos e mais.
 
+## 📋 Sumário
+
+- [🚀 Tecnologias](#-tecnologias)
+- [📚 Swagger](#-swagger)
+  - [🔗 Como acessar a documentação](#-como-acessar-a-documentação)
+- [🔗 Integrações](#-integração-com-superfrete)
+  - [Integração com SuperFrete](#-integração-com-superfrete)
+  - [Integração com Mercado Pago](#-funcionalidades-implementadas)
+- [🗃️ Banco de Dados](#️-banco-de-dados)
+  - [⚙️ Configuração](#️-configuração)
+  - [🔄 Compatibilidade](#-compatibilidade)
+  - [🧱 Estrutura do Banco](#-estrutura-do-banco)
+- [📌 Perfis de Usuário](#-perfis-de-usuário)
+- [🔒 Autenticação](#-autenticação)
+- [📌 Endpoints](#-endpoints)
+  - [🧑 Usuários](#-usuários)
+  - [🏠 Endereços](#-endereços)
+  - [🛂 Carrinho de Compras](#-carrinho-de-compras)
+  - [📦 Produtos](#-produtos)
+  - [⭐ Favoritos](#-favoritos)
+  - [🛒 Pedidos](#-pedidos)
+  - [💳 Pagamento](#-pagamento)
+  - [🚚 Envio](#-envio)
+  - [🎟️ Cupons de Desconto](#-cupons-de-desconto)
+  - [📝 Avaliações de Produtos](#-avaliações-de-produtos)
+- [🛠️ Como Configurar o Projeto](#️-como-configurar-o-projeto)
+
 ## 🚀 Tecnologias
 - **Java**
 - **Spring Boot**
