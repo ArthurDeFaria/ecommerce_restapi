@@ -1,15 +1,22 @@
 # 📦 API REST de E-commerce
 
-Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinho de compras, pedidos, pagamentos e mais.
+![Java](https://img.shields.io/badge/Java-17%2B-blue?style=for-the-badge&logo=java)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green?style=for-the-badge&logo=spring)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
+
+API REST robusta para uma solução completa de E-commerce. Este projeto serve como um backend completo, gerenciando usuários, produtos, carrinho de compras, pedidos e pagamentos, com integrações prontas para serviços de frete e pagamento.
 
 ## 📋 Sumário
 
+- [🛠️ Guia de Instalação e Execução](#️-guia-de-instalação-e-execução)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Passos para Instalação](#passos-para-instalação)
 - [🚀 Tecnologias](#-tecnologias)
-- [📚 Swagger](#-swagger)
-  - [🔗 Como acessar a documentação](#-como-acessar-a-documentação)
-- [🔗 Integrações](#-integração-com-superfrete)
+- [🔗 Integrações](#-integrações)
   - [Integração com SuperFrete](#-integração-com-superfrete)
-  - [Integração com Mercado Pago](#-funcionalidades-implementadas)
+  - [Integração com Mercado Pago](#-integração-com-mercado-pago)
+- [📚 Swagger (Documentação da API)](#-swagger-documentação-da-api)
 - [🗃️ Banco de Dados](#️-banco-de-dados)
   - [⚙️ Configuração](#️-configuração)
   - [🔄 Compatibilidade](#-compatibilidade)
@@ -27,275 +34,179 @@ Esta API permite gerenciar um e-commerce, incluindo usuários, produtos, carrinh
   - [🚚 Envio](#-envio)
   - [🎟️ Cupons de Desconto](#-cupons-de-desconto)
   - [📝 Avaliações de Produtos](#-avaliações-de-produtos)
-- [🛠️ Como Configurar o Projeto](#️-como-configurar-o-projeto)
+- [🤝 Como Contribuir](#-como-contribuir)
+- [📜 Licença](#-licença)
+
+## 🛠️ Guia de Instalação e Execução
+
+### Pré-requisitos
+- Java 17+
+- Maven 3.8+
+- PostgreSQL 14+ (ou uma instância Docker)
+- Git
+
+### Passos para Instalação
+1. **Clone o repositório:**
+   ```sh
+   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+   cd seu-repositorio
+2. **Configure as variáveis de ambiente:**
+  - Crie um arquivo .env na raiz do projeto.
+  - Adicione as seguintes variáveis, substituindo pelos seus valores (Local ou Nuvem):
+    ```sh
+    DATASOURCE_URL="jdbc:postgresql://localhost:5432/nome_do_banco"
+    DATASOURCE_USERNAME="seu_usuario_postgres"
+    DATASOURCE_PASSWORD="sua_senha_postgres"
+    JWT_SECRET="sua_chave_secreta_super_segura_aqui"
+    SUPER_FRETE_TOKEN="seu_token_da_super_frete"
+    MERCADO_PAGO_TOKEN="seu_token_do_mercado_pago"
+4. **Execute a aplicação**
+A API estará disponível em [http://localhost:8080](http://localhost:8080)
+
+### **3. Tecnologias, Integrações e Swagger**
+
 
 ## 🚀 Tecnologias
-- **Java**
-- **Spring Boot**
-- **Spring Security (JWT)**
-- **JPA/Hibernate**
-- **PostgreSQL(Opcional - Ler o tópico 🔄 Compatibilidade)**
-- **Swagger (Documentação)**
-- **API de cotação de frete ([Superfrete](https://superfrete.com.br/))**
-- **Gateway de Pagamento ([MercadoPago](https://www.mercadopago.com.br/developers/pt))**
+- **Java** & **Spring Boot**: Base da aplicação.
+- **Spring Security (JWT)**: Para autenticação e autorização.
+- **JPA/Hibernate**: Para persistência de dados.
+- **PostgreSQL**: Banco de dados principal.
+- **Swagger**: Documentação interativa da API.
 
-## 📚 Swagger
-A API conta com documentação interativa do Swagger, permitindo visualizar modelos de requisição/resposta e entender a estrutura da API.
+## 🔗 Integrações
+### Integração com SuperFrete
+Este projeto integra a API da [SuperFrete](https://superfrete.com.br/) para realizar cotações de frete em tempo real (SEDEX, PAC, etc.), com base em CEP, dimensões do pacote e valor segurado.
 
-## 🔗 Integração com SuperFrete
+### Integração com Mercado Pago
+Utiliza a API oficial do [Mercado Pago](https://www.mercadopago.com.br/developers/pt) para processar pagamentos de forma segura.
+- Criação de preferências de pagamento.
+- Redirecionamento para o checkout do Mercado Pago.
+- Recebimento de notificações de status via **webhook**.
+- Suporte a pagamentos via cartão, Pix e boleto.
 
-Este projeto integra a API da [SuperFrete](https://superfrete.com.br/) para realizar cotações de frete em tempo real, permitindo ao usuário visualizar opções de envio como SEDEX, PAC e Mini Envios, de forma simples e automatizada.
-
-A API da SuperFrete é utilizada para calcular valores de envio com base em:
-- CEP de origem e destino
-- Peso e dimensões do pacote
-- Valor segurado
-- Serviços adicionais (mão própria, aviso de recebimento, etc.)
-
-<!-- ## 🔗 Integração com Mercado Pago
-
-Este projeto utiliza a API oficial do [Mercado Pago](https://www.mercadopago.com.br/developers/pt) para processar pagamentos de forma segura e eficiente. A integração permite que os usuários realizem transações diretamente pela aplicação, utilizando diversos métodos de pagamento.
-
-### 🔐 Autenticação
-
-A autenticação com o Mercado Pago é feita por meio de **Access Token**, obtido a partir do [Painel de Desenvolvedor](https://www.mercadopago.com.br/developers/panel). No ambiente de desenvolvimento (sandbox), é possível simular pagamentos e testar diferentes fluxos de compra. -->
-
-### 💼 Funcionalidades Implementadas
-
-- Criação de preferências de pagamento
-- Redirecionamento para checkout Mercado Pago
-- Recebimento de notificações via **webhook**
-- Validação de status do pagamento (approved, pending, rejected)
-- Suporte a pagamento via cartão, Pix e boleto
-### 🔗 Como acessar a documentação
-Após iniciar o projeto localmente, acesse a URL abaixo no navegador:
+## 📚 Swagger (Documentação da API)
+A API conta com documentação interativa do Swagger. Após iniciar o projeto localmente, acesse a URL abaixo no navegador para explorar e testar os endpoints:
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-> ⚠️ Certifique-se de que a aplicação esteja rodando e o perfil de desenvolvimento esteja ativado (`dev`). Caso esteja rodando em um servidor, acesse o endpoint `/swagger-ui/index.html`.
+> ⚠️ Certifique-se de que a aplicação esteja rodando e o perfil `dev` ativado.
 
 ## 🗃️ Banco de Dados
-
-Este projeto utiliza **PostgreSQL** como sistema de banco de dados relacional principal, aproveitando sua robustez, performance e compatibilidade com o ecossistema Spring.
+O projeto utiliza **PostgreSQL**, mas é compatível com outros bancos de dados relacionais.
 
 ### ⚙️ Configuração
-
-A conexão com o banco de dados é feita por meio do arquivo `application.properties`, utilizando variáveis de ambiente carregadas a partir de um arquivo `.env`.
-
-#### ✅ Exemplo de `.env`
-```
-DATASOURCE_URL="jdbc:postgresql://localhost:5432/ecommerce"
-JWT_SECRET="uma_chave_secreta_segura"
-SUPER_FRETE_TOKEN="token_gerado_da_super_frete"
-```
+A conexão é definida no `application.properties` e alimentada por variáveis de ambiente do arquivo `.env`.
 
 ### 🔄 Compatibilidade
-> ⚠️ Embora o projeto esteja configurado para usar PostgreSQL, ele é compatível com qualquer banco de dados relacional, como MySQL, MariaDB, SQL Server, entre outros.
-Para utilizar outro banco:
-1. Substitua a dependência do PostgreSQL no pom.xml pela do banco desejado.
-2. Altere a variável `DATASOURCE_URL` no arquivo .env para a URL de conexão do novo banco.
-3. Altere a variável `spring.datasource.driver-class-name` no arquivo .properties do projeto para a do banco escolhido.
+Para usar outro banco (MySQL, MariaDB, etc.):
+1. Adicione a dependência do driver JDBC desejado no `pom.xml`.
+2. Altere a `DATASOURCE_URL` e outras variáveis de conexão no arquivo `.env`.
 
 ### 🧱 Estrutura do Banco
-
-As tabelas do banco de dados são geradas automaticamente com base nas entidades definidas no projeto, utilizando **JPA** e **Hibernate**.
-
-#### 📐 Modelagem
-
-A modelagem foi feita seguindo boas práticas de normalização e mapeamento relacional:
-
-- **Chaves primárias** geradas automaticamente com `@Id` e `@GeneratedValue`.
-- **Relacionamentos entre entidades** usando:
-  - `@OneToOne`
-  - `@OneToMany`
-  - `@ManyToOne`
-  - `@ManyToMany`
-- **Campos obrigatórios e únicos** com `@Column(nullable = false, unique = true)`
-- **Enums** mapeados com `@Enumerated(EnumType.STRING)`
-
-#### 🗂️ Tabelas principais
-
-- `usuario` — Armazena dados de autenticação, nome, email, senha, roles, etc.
-- `endereco` — Endereços associados aos usuários.
-- `produto` — Catálogo de produtos disponíveis para venda.
-- `carrinho` — Carrinho de compras de cada usuário.
-- `item_carrinho` — Produtos adicionados ao carrinho.
-- `pedido` — Pedidos finalizados pelos usuários.
-- `item_pedido` — Produtos incluídos em um pedido.
-- `cupom` — Cupons de desconto disponíveis para uso.
-- `pagamento` — Informações de pagamento dos pedidos.
-- `envios` — Informações de envio e status da entrega.
-- `avaliacao` — Avaliações deixadas pelos usuários nos produtos.
-- `favorito` — Produtos marcados como favoritos por usuários.
-- `usuario_cupom` — Cupons utilizados pelos usuários.
-
-> ⚠️ A estrutura do banco é atualizada automaticamente em tempo de execução quando a propriedade `spring.jpa.hibernate.ddl-auto=update` está configurada.  
-Para ambientes de produção, recomenda-se alterar para `validate` ou utilizar ferramentas de versionamento como **Flyway** ou **Liquibase**.
+As tabelas são geradas e atualizadas automaticamente pelo Hibernate (`ddl-auto=update`).
+> ⚠️ Para produção, recomenda-se usar `validate` e ferramentas de versionamento como **Flyway** ou **Liquibase**.
 
 ## 📌 Perfis de Usuário
-- **USER**: Pode criar conta, fazer login, gerenciar carrinho, pedidos e favoritos.
-- **MANAGER**: Pode gerenciar produtos e pedidos.
-- **ADMIN**: Pode gerenciar usuários, produtos, pedidos e cupons.
+- **USER**: Cliente padrão, pode gerenciar sua conta, carrinho, pedidos e favoritos.
+- **MANAGER**: Pode gerenciar produtos e pedidos de todos os usuários.
+- **ADMIN**: Acesso total para gerenciar usuários, produtos, pedidos e cupons.
 
 ## 🔒 Autenticação
-A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exigem um **token Bearer** no cabeçalho `Authorization`.
+A API usa **JWT (JSON Web Token)**. Endpoints protegidos exigem um **token Bearer** no cabeçalho `Authorization`.
 
 ## 📌 Endpoints
-
 ### 🧑 Usuários
-- `POST /auth/registro` - Criar conta **(Público)**
-- `POST /auth/login` - Autenticar usuário e gerar token JWT **(Público)**
-- `GET /usuarios/info` - Obter informações do usuário logado **(USER, MANAGER, ADMIN)**
-- `PUT /usuarios/info` - Atualizar informações do usuário logado **(USER, MANAGER, ADMIN)**
-- `DELETE /usuarios/info` - Deletar usuário logado **(USER, MANAGER, ADMIN)**
-- `GET /usuarios/{id}` - Obter informações de um usuário **(MANAGER, ADMIN)**
-- `PUT /usuarios/{id}` - Atualizar dados de um usuário **(MANAGER, ADMIN)**
-- `DELETE /usuarios/{id}` - Deletar qualquer conta **(ADMIN)**
-- `POST /auth/registro/adm` - Criar conta com permissões de ADMIN **(ADMIN)**
-- `GET /usuarios` - Listar todos os usuários **(ADMIN)**
-
-| Método | Endpoint                  | Acesso                 | Status              |
-|--------|---------------------------|------------------------|---------------------|
-| POST   | /auth/registro            | Público                | ✅ Pronto           |
-| POST   | /auth/login               | Público                | ✅ Pronto           |
-| GET    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
-| PUT    | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
-| DELETE | /usuarios/info            | USER, MANAGER, ADMIN   | ✅ Pronto           |
-| GET    | /usuarios/{id}            | MANAGER, ADMIN         | ✅ Pronto           |
-| PUT    | /usuarios/{id}            | MANAGER, ADMIN         | ✅ Pronto           |
-| DELETE | /usuarios/{id}            | ADMIN                  | ✅ Pronto           |
-| POST   | /auth/registro/adm        | ADMIN                  | ✅ Pronto           |
-| GET    | /usuarios                 | ADMIN                  | ✅ Pronto           |
+| Método | Endpoint                  | Descrição                                 | Acesso                 | Status    |
+|--------|---------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /auth/registro            | Cria uma nova conta de usuário.           | Público                | ✅ Pronto |
+| POST   | /auth/login               | Autentica um usuário e retorna um token.  | Público                | ✅ Pronto |
+| GET    | /usuarios/info            | Obtém informações do usuário logado.      | USER, MANAGER, ADMIN   | ✅ Pronto |
+| PUT    | /usuarios/info            | Atualiza informações do usuário logado.   | USER, MANAGER, ADMIN   | ✅ Pronto |
+| DELETE | /usuarios/info            | Deleta o usuário logado.                  | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /usuarios/{id}            | Obtém informações de um usuário.          | MANAGER, ADMIN         | ✅ Pronto |
+| PUT    | /usuarios/{id}            | Atualiza dados de um usuário.             | MANAGER, ADMIN         | ✅ Pronto |
+| DELETE | /usuarios/{id}            | Deleta qualquer conta.                    | ADMIN                  | ✅ Pronto |
+| POST   | /auth/registro/adm        | Cria conta com permissões de ADMIN.       | ADMIN                  | ✅ Pronto |
+| GET    | /usuarios                 | Lista todos os usuários.                  | ADMIN                  | ✅ Pronto |
 
 ### 🏠 Endereços
-- `POST /enderecos` - Criar um novo endereço **(MANAGER, ADMIN)**
-- `GET /enderecos/{id}` - Obter um endereço específico **(MANAGER, ADMIN)**
-- `GET /enderecos/usuario/{usuarioId}` - Listar endereços de um usuário qualquer **(MANAGER, ADMIN)**
-- `PUT /enderecos/{id}` - Atualizar um endereço qualquer **(MANAGER, ADMIN)**
-- `DELETE /enderecos/{id}` - Remover um endereço qualquer **(ADMIN)**
-- `POST /enderecos/info` - Criar um novo endereço para o usuário logado **(USER, MANAGER, ADMIN)**
-- `GET /enderecos/info/{id}` - Obter um endereço específico do usuário logado **(USER, MANAGER, ADMIN)**
-- `GET /enderecos/info` - Listar endereços do usuário logado **(USER, MANAGER, ADMIN)**
-- `PUT /enderecos/{id}` - Atualizar o endereço do usuário logado **(USER, MANAGER, ADMIN)**
-- `DELETE /enderecos/{id}` - Remover o endereço do usuário logado **(USER, MANAGER, ADMIN)**
-
-
-| Método | Endpoint                               | Acesso               | Status              |
-|--------|----------------------------------------|----------------------|---------------------|
-| POST   | /enderecos                             | MANAGER, ADMIN       | ✅ Pronto           |
-| GET    | /enderecos/{id}                        | MANAGER, ADMIN       | ✅ Pronto           |
-| GET    | /enderecos/usuarios/{usuarioId}        | MANAGER, ADMIN       | ✅ Pronto           |
-| PUT    | /enderecos                             | MANAGER, ADMIN       | ✅ Pronto           |
-| DELETE | /enderecos/{id}                        | ADMIN                | ✅ Pronto           |
-| POST   | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
-| GET    | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ✅ Pronto           |
-| GET    | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
-| PUT    | /enderecos/info                        | USER, MANAGER, ADMIN | ✅ Pronto           |
-| DELETE | /enderecos/info/{id}                   | USER, MANAGER, ADMIN | ✅ Pronto           |
-
-
+| Método | Endpoint                  | Descrição                                 | Acesso                 | Status    |
+|--------|---------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /enderecos/info           | Cria endereço para o usuário logado.      | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /enderecos/info           | Lista endereços do usuário logado.        | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /enderecos/info/{id}      | Obtém endereço do usuário logado.         | USER, MANAGER, ADMIN   | ✅ Pronto |
+| PUT    | /enderecos/info/{id}      | Atualiza endereço do usuário logado.      | USER, MANAGER, ADMIN   | ✅ Pronto |
+| DELETE | /enderecos/info/{id}      | Remove endereço do usuário logado.        | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /enderecos/usuario/{id}   | Lista endereços de um usuário.            | MANAGER, ADMIN         | ✅ Pronto |
 
 ### 🛂 Carrinho de Compras
-- `POST /carrinho/adicionar` - Adicionar produto ao carrinho **(USER, MANAGER, ADMIN)**
-- `GET /carrinho/{usuarioId}` - Obter itens do carrinho **(USER, MANAGER, ADMIN)**
-- `PUT /carrinho/atualizar/{itemId}` - Atualizar quantidade de um item **(USER, MANAGER, ADMIN)**
-- `DELETE /carrinho/remover/{itemId}` - Remover item do carrinho **(USER, MANAGER, ADMIN)**
-- `DELETE /carrinho/limpar` - Esvaziar carrinho **(USER, MANAGER, ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status         |
-|--------|----------------------------------------|----------------------|----------------|
-| POST   | /carrinho/info                         | USER, MANAGER, ADMIN | ✅ Pronto      |
-| POST   | /carrinho/adicionar                    | USER, MANAGER, ADMIN | ✅ Pronto      |
-| GET    | /carrinho/{usuarioId}                  | USER, MANAGER, ADMIN | ✅ Pronto      |
-| PUT    | /carrinho/atualizar/{itemId}           | USER, MANAGER, ADMIN | ✅ Pronto      |
-| DELETE | /carrinho/remover/{itemId}             | USER, MANAGER, ADMIN | ✅ Pronto      |
-| DELETE | /carrinho/limpar                       | USER, MANAGER, ADMIN | ✅ Pronto      |
+| Método | Endpoint                   | Descrição                                 | Acesso                 | Status    |
+|--------|----------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /carrinho/adicionar        | Adiciona um produto ao carrinho.          | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /carrinho/info             | Obtém os itens do carrinho.               | USER, MANAGER, ADMIN   | ✅ Pronto |
+| PUT    | /carrinho/atualizar/{itemId} | Atualiza a quantidade de um item.       | USER, MANAGER, ADMIN   | ✅ Pronto |
+| DELETE | /carrinho/remover/{itemId} | Remove um item do carrinho.             | USER, MANAGER, ADMIN   | ✅ Pronto |
+| DELETE | /carrinho/limpar           | Esvazia o carrinho do usuário.            | USER, MANAGER, ADMIN   | ✅ Pronto |
 
 ### 📦 Produtos
-- `GET /produtos` - Listar todos os produtos **(Público)**
-- `GET /produtos/categoria/{categoria}` - Listar produtos por categoria **(Público)**
-- `GET /produtos/search` - Buscar produtos por nome **(Público)**
-- `GET /produtos/{id}` - Obter um produto específico **(Público)**
-- `POST /produtos` - Criar novo produto **(MANAGER, ADMIN)**
-- `PUT /produtos` - Atualizar produto existente **(MANAGER, ADMIN)**
-- `DELETE /produtos/{id}` - Remover um produto **(ADMIN)**
-
-| Método | Endpoint                        | Acesso         | Status   |
-| ------ | ------------------------------- | -------------- | -------- |
-| GET    | /produtos                       | Público        | ✅ Pronto |
-| GET    | /produtos/categoria/{categoria} | Público        | ✅ Pronto |
-| GET    | /produtos/search                | Público        | ✅ Pronto |
-| GET    | /produtos/{id}                  | Público        | ✅ Pronto |
-| POST   | /produtos                       | MANAGER, ADMIN | ✅ Pronto |
-| PUT    | /produtos                       | MANAGER, ADMIN | ✅ Pronto |
-| DELETE | /produtos/{id}                  | ADMIN          | ✅ Pronto |
+| Método | Endpoint                      | Descrição                                 | Acesso         | Status    |
+|--------|-------------------------------|-------------------------------------------|----------------|-----------|
+| GET    | /produtos                     | Lista todos os produtos.                  | Público        | ✅ Pronto |
+| GET    | /produtos/categoria/{categoria} | Lista produtos por categoria.             | Público        | ✅ Pronto |
+| GET    | /produtos/search              | Busca produtos por nome.                  | Público        | ✅ Pronto |
+| GET    | /produtos/{id}                | Obtém um produto específico.              | Público        | ✅ Pronto |
+| POST   | /produtos                     | Cria um novo produto.                     | MANAGER, ADMIN | ✅ Pronto |
+| PUT    | /produtos                     | Atualiza um produto existente.            | MANAGER, ADMIN | ✅ Pronto |
+| DELETE | /produtos/{id}                | Remove um produto.                        | ADMIN          | ✅ Pronto |
 
 ### ⭐ Favoritos
-- `POST /favoritos` - Adicionar produto aos favoritos **(USER, MANAGER, ADMIN)**
-- `GET /favoritos/{usuarioId}` - Listar favoritos do usuário **(USER, MANAGER, ADMIN)**
-- `DELETE /favoritos/{id}` - Remover produto dos favoritos **(USER, MANAGER, ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| GET    | /favoritos/{usuarioId}                 | USER, MANAGER, ADMIN | ✅ Pronto     |
-| POST   | /favoritos                             | USER, MANAGER, ADMIN | ✅ Pronto     |
-| DELETE | /favoritos/{id}                        | USER, MANAGER, ADMIN | ✅ Pronto     |
+| Método | Endpoint               | Descrição                                 | Acesso                 | Status    |
+|--------|------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /favoritos             | Adiciona um produto aos favoritos.        | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /favoritos/info        | Lista os favoritos do usuário.            | USER, MANAGER, ADMIN   | ✅ Pronto |
+| DELETE | /favoritos/{id}        | Remove um produto dos favoritos.          | USER, MANAGER, ADMIN   | ✅ Pronto |
 
 ### 🛒 Pedidos
-- `POST /pedidos/finalizar` - Criar um novo pedido **(USER, MANAGER, ADMIN)**
-- `GET /pedidos/{id}` - Obter detalhes de um pedido **(USER, MANAGER, ADMIN)**
-- `GET /pedidos/usuario/{usuarioId}` - Listar pedidos do usuário **(USER, MANAGER, ADMIN)**
-- `GET /pedidos` - Listar todos os pedidos **(MANAGER, ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status         |
-|--------|----------------------------------------|----------------------|----------------|
-| GET    | /pedidos                               | MANAGER, ADMIN       | ✅ Pronto      |
-| GET    | /pedidos/{id}                          | USER, MANAGER, ADMIN | ✅ Pronto      |
-| GET    | /pedidos/usuario/{usuarioId}           | MANAGER, ADMIN       | ✅ Pronto      |
-| POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | ✅ Pronto      |
+| Método | Endpoint                     | Descrição                                 | Acesso                 | Status    |
+|--------|------------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /pedidos/finalizar           | Cria um novo pedido a partir do carrinho. | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /pedidos/info                | Lista os pedidos do usuário logado.       | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /pedidos/{id}                | Obtém detalhes de um pedido.              | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /pedidos                     | Lista todos os pedidos do sistema.        | MANAGER, ADMIN         | ✅ Pronto |
 
 ### 💳 Pagamento
-- `GET /pagamentos/{pedidoId}` - Obter status do pagamento **(USER, MANAGER, ADMIN)**
-- `POST /pagamentos/webhooks` - Processar pagamento via webhook do mercado pago **(Mercado Pago)**
-
-| Método | Endpoint                               | Acesso               | Status         |
-|--------|----------------------------------------|----------------------|----------------|
-| GET    | /pagamentos/{pedidoId}                 | USER, MANAGER, ADMIN | ✅ Pronto      |
-| POST   | /pagamentos/webhooks                   | USER, MANAGER, ADMIN | ✅ Pronto      |
-
+| Método | Endpoint               | Descrição                                 | Acesso                 | Status    |
+|--------|------------------------|-------------------------------------------|------------------------|-----------|
+| GET    | /pagamentos/{pedidoId} | Obtém o status do pagamento de um pedido. | USER, MANAGER, ADMIN   | ✅ Pronto |
+| POST   | /pagamentos/webhook    | Recebe notificações do Mercado Pago.      | Público (Webhook)      | ✅ Pronto |
 
 ### 🚚 Envio
-- `GET /envios/{pedidoId}` - Consultar status do envio **(USER, MANAGER, ADMIN)**
-- `PUT /envios/{pedidoId}` - Atualizar status do envio **(MANAGER, ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| GET    | /envios/{pedidoId}                     | USER, MANAGER, ADMIN | ⏳ Planejado  |
-| POST   | /envios/cotarfrete                     | Público              | ✅ Pronto     |
-| PUT    | /envios/{pedidoId}                     | MANAGER, ADMIN       | ⏳ Planejado  |
+| Método | Endpoint               | Descrição                                 | Acesso                 | Status       |
+|--------|------------------------|-------------------------------------------|------------------------|--------------|
+| POST   | /envios/cotarfrete     | Cota o valor do frete para um CEP.        | Público                | ✅ Pronto    |
+| GET    | /envios/{pedidoId}     | Consulta o status do envio.               | USER, MANAGER, ADMIN   | ⏳ Planejado |
+| PUT    | /envios/{pedidoId}     | Atualiza o status do envio.               | MANAGER, ADMIN         | ⏳ Planejado |
 
 ### 🎟️ Cupons de Desconto
-- `POST /cupons` - Criar um novo cupom **(ADMIN)**
-- `GET /cupons` - Listar cupons disponíveis **(MANAGER, ADMIN)**
-- `GET /cupons/{codigo}` - Verificar se um cupom é válido **(USER, MANAGER, ADMIN)**
-- `DELETE /cupons/{id}` - Excluir um cupom **(ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status         |
-|--------|----------------------------------------|----------------------|----------------|
-| POST   | /cupons                                | ADMIN                | ⏳ Planejado   |
-| GET    | /cupons                                | MANAGER, ADMIN       | ⏳ Planejado   |
-| GET    | /cupons/{codigo}                       | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| DELETE | /cupons/{id}                           | ADMIN                | ⏳ Planejado   |
+| Método | Endpoint               | Descrição                                 | Acesso                 | Status       |
+|--------|------------------------|-------------------------------------------|------------------------|--------------|
+| GET    | /cupons/{codigo}       | Verifica a validade de um cupom.          | USER, MANAGER, ADMIN   | ⏳ Planejado |
+| GET    | /cupons                | Lista todos os cupons disponíveis.        | MANAGER, ADMIN         | ⏳ Planejado |
+| POST   | /cupons                | Cria um novo cupom.                       | ADMIN                  | ⏳ Planejado |
+| DELETE | /cupons/{id}           | Exclui um cupom.                          | ADMIN                  | ⏳ Planejado |
 
 ### 📝 Avaliações de Produtos
-- `POST /avaliacoes` - Criar uma avaliação para um produto **(USER, MANAGER, ADMIN)**
-- `GET /avaliacoes/{produtoId}` - Listar avaliações de um produto **(Público)**
+| Método | Endpoint               | Descrição                                 | Acesso                 | Status    |
+|--------|------------------------|-------------------------------------------|------------------------|-----------|
+| POST   | /avaliacoes            | Cria uma avaliação para um produto.       | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /avaliacoes/{produtoId} | Lista as avaliações de um produto.        | Público                | ✅ Pronto |
 
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| GET    | /avaliacoes/{produtoId}                | Público              | ✅ Pronto     |
-| POST   | /avaliacoes                            | USER, MANAGER, ADMIN | ✅ Pronto     |
+## 🤝 Como Contribuir
+Contribuições são o que fazem a comunidade open source um lugar incrível para aprender, inspirar e criar. Qualquer contribuição que você fizer será **muito apreciada**.
 
-## 🛠️ Como Configurar o Projeto
-1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
-2. Acesse a pasta do projeto: `cd nome-do-projeto`
-3. Crie um arquivo `.env`
-3. Configure as variáveis de ambiente no `.env` com base no `.env.example`
+1. Faça um Fork do projeto.
+2. Crie sua Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. Faça o Commit de suas alterações (`git commit -m 'Add some AmazingFeature'`).
+4. Faça o Push para a Branch (`git push origin feature/AmazingFeature`).
+5. Abra um Pull Request.
+
+## 📜 Licença
+Distribuído sob a licença MIT. Veja `LICENSE.txt` para mais informações.
