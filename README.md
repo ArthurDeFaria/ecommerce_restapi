@@ -223,24 +223,16 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | GET    | /pedidos                               | MANAGER, ADMIN       | ✅ Pronto      |
 | GET    | /pedidos/{id}                          | USER, MANAGER, ADMIN | ✅ Pronto      |
 | GET    | /pedidos/usuario/{usuarioId}           | MANAGER, ADMIN       | ✅ Pronto      |
-| POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | 🫥 Incompleto  |
-
-### 📋 Itens do Pedido
-- `GET /itens-pedido/{pedidoId}` - Listar itens de um pedido **(USER, MANAGER, ADMIN)**
-
-| Método | Endpoint                               | Acesso               | Status        |
-|--------|----------------------------------------|----------------------|---------------|
-| GET    | /itens-pedido/{pedidoId}               | USER, MANAGER, ADMIN | ⏳ Planejado  |
+| POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | ✅ Pronto      |
 
 ### 💳 Pagamento
-- `POST /pagamentos` - Processar pagamento **(USER, MANAGER, ADMIN)**
+- `POST /pagamentos` - Processar pagamento via webhook do mercado pago **(USER, MANAGER, ADMIN)**
 - `GET /pagamentos/{pedidoId}` - Obter status do pagamento **(USER, MANAGER, ADMIN)**
 
 | Método | Endpoint                               | Acesso               | Status         |
 |--------|----------------------------------------|----------------------|----------------|
-| GET    | /pagamentos/{pedidoId}                 | USER, MANAGER, ADMIN | ⏳ Planejado   |
-| POST   | /pagamentos                            | USER, MANAGER, ADMIN | 🫥 Incompleto  |
-| POST   | /pagamentos/webhooks                   | USER, MANAGER, ADMIN | 🫥 Incompleto  |
+| GET    | /pagamentos/{pedidoId}                 | USER, MANAGER, ADMIN | ✅ Pronto      |
+| POST   | /pagamentos/webhooks                   | USER, MANAGER, ADMIN | ✅ Pronto      |
 
 
 ### 🚚 Envio
