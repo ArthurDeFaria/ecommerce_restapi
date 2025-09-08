@@ -48,8 +48,8 @@ API REST robusta para uma solução completa de E-commerce. Este projeto serve c
 ### Passos para Instalação
 1. **Clone o repositório:**
    ```sh
-   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
-   cd seu-repositorio
+   git clone [https://github.com/ArthurDeFaria/ecommerce_restapi.git](https://github.com/ArthurDeFaria/ecommerce_restapi.git)
+   cd ecommerce_restapi
 2. **Configure as variáveis de ambiente:**
   - Crie um arquivo .env na raiz do projeto.
   - Adicione as seguintes variáveis, substituindo pelos seus valores (Local ou Nuvem):
@@ -62,9 +62,6 @@ API REST robusta para uma solução completa de E-commerce. Este projeto serve c
     MERCADO_PAGO_TOKEN="seu_token_do_mercado_pago"
 4. **Execute a aplicação**
 A API estará disponível em [http://localhost:8080](http://localhost:8080)
-
-### **3. Tecnologias, Integrações e Swagger**
-
 
 ## 🚀 Tecnologias
 - **Java** & **Spring Boot**: Base da aplicação.
@@ -175,15 +172,15 @@ A API usa **JWT (JSON Web Token)**. Endpoints protegidos exigem um **token Beare
 ### 💳 Pagamento
 | Método | Endpoint               | Descrição                                 | Acesso                 | Status    |
 |--------|------------------------|-------------------------------------------|------------------------|-----------|
-| GET    | /pagamentos/{pedidoId} | Obtém o status do pagamento de um pedido. | USER, MANAGER, ADMIN   | ✅ Pronto |
+| GET    | /pagamentos/{Id}       | Obtém o status do pagamento de um pedido. | USER, MANAGER, ADMIN   | ✅ Pronto |
 | POST   | /pagamentos/webhook    | Recebe notificações do Mercado Pago.      | Público (Webhook)      | ✅ Pronto |
 
 ### 🚚 Envio
 | Método | Endpoint               | Descrição                                 | Acesso                 | Status       |
 |--------|------------------------|-------------------------------------------|------------------------|--------------|
 | POST   | /envios/cotarfrete     | Cota o valor do frete para um CEP.        | Público                | ✅ Pronto    |
-| GET    | /envios/{pedidoId}     | Consulta o status do envio.               | USER, MANAGER, ADMIN   | ⏳ Planejado |
-| PUT    | /envios/{pedidoId}     | Atualiza o status do envio.               | MANAGER, ADMIN         | ⏳ Planejado |
+| GET    | /envios/{Id}           | Consulta o status do envio.               | USER, MANAGER, ADMIN   | ⏳ Planejado |
+| PUT    | /envios/{Id}           | Atualiza o status do envio.               | MANAGER, ADMIN         | ⏳ Planejado |
 
 ### 🎟️ Cupons de Desconto
 | Método | Endpoint               | Descrição                                 | Acesso                 | Status       |
