@@ -1,6 +1,6 @@
 # 📦 API REST de E-commerce
 
-![Java](https://img.shields.io/badge/Java-17%2B-blue?style=for-the-badge&logo=java)
+![Java](https://img.shields.io/badge/Java-17%2B-red?style=for-the-badge&logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green?style=for-the-badge&logo=spring)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
