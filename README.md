@@ -226,8 +226,8 @@ A API usa **JWT (JSON Web Token)** para autenticação. Endpoints protegidos exi
 | POST   | /pedidos/finalizar                     | USER, MANAGER, ADMIN | ✅ Pronto      |
 
 ### 💳 Pagamento
-- `POST /pagamentos` - Processar pagamento via webhook do mercado pago **(USER, MANAGER, ADMIN)**
 - `GET /pagamentos/{pedidoId}` - Obter status do pagamento **(USER, MANAGER, ADMIN)**
+- `POST /pagamentos/webhooks` - Processar pagamento via webhook do mercado pago **(Mercado Pago)**
 
 | Método | Endpoint                               | Acesso               | Status         |
 |--------|----------------------------------------|----------------------|----------------|
