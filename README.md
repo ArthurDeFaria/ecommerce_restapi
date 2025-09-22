@@ -48,7 +48,7 @@ API REST robusta para uma solução completa de E-commerce. Este projeto serve c
 ### Passos para Instalação
 1. **Clone o repositório:**
    ```sh
-   git clone [https://github.com/ArthurDeFaria/ecommerce_restapi.git](https://github.com/ArthurDeFaria/ecommerce_restapi.git)
+   git clone https://github.com/ArthurDeFaria/ecommerce_restapi.git
    cd ecommerce_restapi
 2. **Configure as variáveis de ambiente:**
   - Crie um arquivo .env na raiz do projeto.
