@@ -8,13 +8,17 @@ import org.springframework.stereotype.Component;
 
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceResponseDTO;
+import com.ckweb.rest_api.dto.mecadopago.PaymentStatusInfo;
+import com.ckweb.rest_api.exception.ResourceNotFoundException;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
 import com.mercadopago.client.preference.PreferenceClient;
 import com.mercadopago.client.preference.PreferenceItemRequest;
 import com.mercadopago.client.preference.PreferencePayerRequest;
 import com.mercadopago.client.preference.PreferenceRequest;
 import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.payment.Payment;
 import com.mercadopago.resources.preference.Preference;
 
@@ -86,8 +90,16 @@ public class MercadoPagoClient implements MercadoPagoClientInterface {
     }
 
     @Override
-    public Payment getPaymentStatus(Long id) throws MPApiException, com.mercadopago.exceptions.MPException {
-        com.mercadopago.client.payment.PaymentClient paymentClient = new com.mercadopago.client.payment.PaymentClient();
-        return paymentClient.get(id);
+    public PaymentStatusInfo getPaymentStatus(Long id) throws MPApiException, MPException {
+        PaymentClient paymentClient = new PaymentClient();
+        Payment payment = paymentClient.get(id); // 4. Busca o objeto original do SDK
+
+        if (payment == null) {
+             // 5. Trata caso não encontre o pagamento
+             log.error("Pagamento com ID {} não encontrado no Mercado Pago.", id);
+             throw new ResourceNotFoundException("Pagamento não encontrado no Mercado Pago: " + id);
+        }
+
+        return new PaymentStatusInfo(payment.getStatus(), payment.getExternalReference());
     }
 }

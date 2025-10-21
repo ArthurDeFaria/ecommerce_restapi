@@ -222,4 +222,24 @@ public class CartService implements CartServiceInterface {
         return new CartGetResponseDTO(updatedCarrinho.getId(), mapCartItemsToDto(updatedCarrinho.getItens()));
     }    
 
+    @Transactional
+    @Override
+    public void clearCartByUser(User user) {
+        if (user == null) {
+            throw new ResourceNotFoundException("Usuário não pode ser nulo");
+        }
+        
+        Cart carrinho = user.getCarrinho();
+        if (carrinho == null) {
+            // Se o carrinho for nulo, não há nada a fazer.
+            return;
+        }
+
+        cartItemRepository.deleteByCarrinho(carrinho);
+
+        carrinho.getItens().clear();
+
+        cartRepository.save(carrinho);
+    }
+
 }

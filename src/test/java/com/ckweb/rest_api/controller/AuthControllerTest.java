@@ -103,4 +103,29 @@ class AuthControllerTest {
                 // Verifica se a resposta JSON contém a chave "token" e se ela não está vazia
                 .andExpect(jsonPath("$.token").isNotEmpty());
     }
+
+    @Test
+    void naoDeveRegistrarUsuarioComDadosInvalidos() throws Exception {
+        // 1. Given (Arrange)
+        // Criamos um pedido com email inválido e senha muito curta
+        RegisterRequestUser request = new RegisterRequestUser(
+                "Test User",
+                "email-invalido.com", // Email inválido
+                "123", // Senha curta (min 6)
+                "", // CPF vazio
+                "01/01/2000",
+                "991112222"
+        );
+
+        // 2. When (Act) & 3. Then (Assert)
+        mockMvc.perform(post("/auth/registro")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest()) // Espera 400
+                .andExpect(jsonPath("$.message").value("Erro de validação"))
+                // Verifica se o JSON de resposta contém os erros específicos
+                .andExpect(jsonPath("$.errors.email").value("Formato de email inválido"))
+                .andExpect(jsonPath("$.errors.senha").value("Senha deve ter no mínimo 6 caracteres"))
+                .andExpect(jsonPath("$.errors.cpf").value("CPF não pode ser vazio"));
+    }
 }

@@ -36,6 +36,7 @@ import com.ckweb.rest_api.repository.*;
 import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 import com.ckweb.rest_api.service.interfaces.OrderServiceInterface;
 
+import jakarta.transaction.Transactional;
 
 
 @Service
@@ -59,8 +60,8 @@ public class OrderService implements OrderServiceInterface {
         // @Autowired
         // private CouponRepository couponRepository;
 
-        @Autowired
-        private CartService cartService;
+        // @Autowired
+        // private CartService cartService;
 
         @Autowired
         private MercadoPagoClientInterface mercadoPagoClient;
@@ -88,10 +89,12 @@ public class OrderService implements OrderServiceInterface {
                                 .collect(Collectors.toList());
         }
 
+        @Transactional
         public FinalizeOrderResponseDTO createOrderAndPaymentPreference(String token, OrderPostRequestDTO request) {
                 String cleanedToken = token.replace("Bearer ", "");
                 String email = jwtService.extractEmailFromToken(cleanedToken);
                 User user = userRepository.findByEmail(email);
+
 
                 Cart cart = cartRepository.findByUsuario(user);
                 if (cart == null || cart.getItens().isEmpty()) {
@@ -122,7 +125,7 @@ public class OrderService implements OrderServiceInterface {
                 }
 
                 // 5. Limpe o carrinho do usuário após o pedido ser criado com sucesso
-                cartService.clearCart(token);
+                // cartService.clearCart(token);
 
                 // 6. Crie e retorne a resposta combinada para o frontend
                 OrderResponseDTO orderResponse = convertToDTO(savedOrder);
