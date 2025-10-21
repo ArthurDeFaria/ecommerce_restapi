@@ -14,8 +14,8 @@ import com.ckweb.rest_api.model.Address;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.AddressRepository;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
 import com.ckweb.rest_api.service.interfaces.AddressServiceInterface;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 
 @Service
 public class AddressService implements AddressServiceInterface {
@@ -27,7 +27,7 @@ public class AddressService implements AddressServiceInterface {
     private UserRepository userRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     public ResponseEntity<?> save(AddressPostDTO addressDTO) {
         if (addressDTO.usuario_id() == null) {

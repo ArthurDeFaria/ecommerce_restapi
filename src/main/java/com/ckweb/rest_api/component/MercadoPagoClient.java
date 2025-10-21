@@ -23,19 +23,21 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class MercadoPagoClient {
+public class MercadoPagoClient implements MercadoPagoClientInterface {
     @Value("${api.mercado-pago.token}")
     private String accessToken;
 
     @Value("${api.mercado-pago.notification-url}")
     private String notificationUrl;
 
+    @Override
     @PostConstruct
     public void init() {
         MercadoPagoConfig.setAccessToken(accessToken);
         log.info("Iniciando cliente do Mercado Pago");
     }
 
+    @Override
     public CreatePreferenceResponseDTO createPreference(CreatePreferenceRequestDTO request, String orderId) {
         PreferenceClient PreferenceClient = new PreferenceClient();
 
@@ -83,6 +85,7 @@ public class MercadoPagoClient {
         }
     }
 
+    @Override
     public Payment getPaymentStatus(Long id) throws MPApiException, com.mercadopago.exceptions.MPException {
         com.mercadopago.client.payment.PaymentClient paymentClient = new com.mercadopago.client.payment.PaymentClient();
         return paymentClient.get(id);

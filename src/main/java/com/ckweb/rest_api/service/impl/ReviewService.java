@@ -16,7 +16,7 @@ import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.ProductRepository;
 import com.ckweb.rest_api.repository.ReviewRepository;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 import com.ckweb.rest_api.service.interfaces.ReviewServiceInterface;
 
 @Service
@@ -32,7 +32,7 @@ public class ReviewService implements ReviewServiceInterface {
     private UserRepository userRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     @Override
     public List<ReviewResponseDTO> findAllById(Long productId) {

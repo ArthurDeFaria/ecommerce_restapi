@@ -11,21 +11,23 @@ import com.ckweb.rest_api.dto.user.UserGetDTO;
 import com.ckweb.rest_api.dto.user.UserUpdateDTO;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
+import com.ckweb.rest_api.service.interfaces.UserServiceInterface;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class UserService {
+public class UserService implements UserServiceInterface{
     
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Override
     public List<UserGetDTO> findAll() {
     return userRepository.findAll().stream()
             .map(user -> new UserGetDTO(
@@ -39,6 +41,7 @@ public class UserService {
             .toList();
     }
 
+    @Override
     public UserGetDTO findById(Long id) {
     return userRepository.findById(id)
             .map(user -> new UserGetDTO(
@@ -53,6 +56,7 @@ public class UserService {
     }
 
 
+    @Override
     public UserGetDTO getUsuarioLogadoInfo(String token) {
         String cleanedToken = token.replace("Bearer ", "");
         String email = jwtService.extractEmailFromToken(cleanedToken);
@@ -60,10 +64,12 @@ public class UserService {
         return new UserGetDTO(user.getId(), user.getNome(), user.getEmail(), user.getCpf(), user.getDataNascimento(), user.getTelefone());
     }
     
+    @Override
     public User save(User user) {
         return userRepository.save(user);
     }
 
+    @Override
     public UserGetDTO update(UserUpdateDTO dto) {
         User user = userRepository.findById(dto.id())
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
@@ -100,6 +106,7 @@ public class UserService {
         );
     }
 
+    @Override
     public UserGetDTO updateUsuarioLogadoInfo(String token, UserAutoUpdateDTO dto) {
         String cleanedToken = token.replace("Bearer ", "");
         String email = jwtService.extractEmailFromToken(cleanedToken);
@@ -137,10 +144,12 @@ public class UserService {
         );
     }
 
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Override
     public void deleteUsuarioLogadoInfo(String token) {
         String cleanedToken = token.replace("Bearer ", "");
         String email = jwtService.extractEmailFromToken(cleanedToken);

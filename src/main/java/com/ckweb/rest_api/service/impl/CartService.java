@@ -19,8 +19,8 @@ import com.ckweb.rest_api.repository.CartItemRepository;
 import com.ckweb.rest_api.repository.CartRepository;
 import com.ckweb.rest_api.repository.ProductRepository;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
 import com.ckweb.rest_api.service.interfaces.CartServiceInterface;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 
 @Service
 public class CartService implements CartServiceInterface {
@@ -29,7 +29,7 @@ public class CartService implements CartServiceInterface {
     private CartRepository cartRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     @Autowired
     private UserRepository userRepository;

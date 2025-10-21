@@ -8,17 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ckweb.rest_api.repository.ProductRepository;
+import com.ckweb.rest_api.service.interfaces.ProductServiceInterface;
 import com.ckweb.rest_api.dto.product.ProductGetResponseDTO;
 import com.ckweb.rest_api.dto.product.ProductPostRequestDTO;
 import com.ckweb.rest_api.dto.product.ProductPutRequestDTO;
 import com.ckweb.rest_api.model.Product;
 
 @Service
-public class ProductService {
+public class ProductService implements ProductServiceInterface{
 
     @Autowired
     ProductRepository productRepository;
 
+    @Override
     public ResponseEntity<List<ProductGetResponseDTO>> findAll() {
         List<Product> products = productRepository.findAllWithAvaliacoes();
         List<ProductGetResponseDTO> productDTOs = products.stream()
@@ -39,6 +41,7 @@ public class ProductService {
         return ResponseEntity.ok().body(productDTOs);
     }
 
+    @Override
     public ResponseEntity<?> findById(Long id) {
         return productRepository.findById(id)
             .map(product -> {
@@ -60,6 +63,7 @@ public class ProductService {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    @Override
     public ResponseEntity<List<ProductGetResponseDTO>> findByCategoria(String categoria) {
         Optional<List<Product>> products = productRepository.findByCategoria(categoria);
         List<ProductGetResponseDTO> productDTOs = products.get().stream()
@@ -80,6 +84,7 @@ public class ProductService {
         return ResponseEntity.ok().body(productDTOs);
     }
 
+    @Override
     public ResponseEntity<?> searchProducts(String query) {
         List<Product> products = productRepository.findAll();
         List<ProductGetResponseDTO> filteredProducts = products.stream()
@@ -106,6 +111,7 @@ public class ProductService {
         return ResponseEntity.ok().body(filteredProducts);
     }
 
+    @Override
     public ResponseEntity<?> save(ProductPostRequestDTO product) {
         Product newProduct = new Product(
             product.nome(),
@@ -124,6 +130,7 @@ public class ProductService {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     public ResponseEntity<?> update(ProductPutRequestDTO product) {
         Optional<Product> existingProduct = productRepository.findById(product.id());
         
@@ -147,6 +154,7 @@ public class ProductService {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     public ResponseEntity<?> delete(Long id) {
         Optional<Product> existingProduct = productRepository.findById(id);
         

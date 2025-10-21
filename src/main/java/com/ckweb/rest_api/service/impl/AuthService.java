@@ -15,8 +15,8 @@ import com.ckweb.rest_api.model.Cart;
 import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.model.enumeration.Cargo;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
 import com.ckweb.rest_api.service.interfaces.AuthServiceInterface;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 
 @Service
 public class AuthService implements AuthServiceInterface{
@@ -28,7 +28,7 @@ public class AuthService implements AuthServiceInterface{
     private UserRepository userRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     public AuthResponse login(AuthRequest authRequest){
         var usernamePassword = new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.senha());

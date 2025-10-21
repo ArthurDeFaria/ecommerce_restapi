@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ckweb.rest_api.dto.product.ProductGetResponseDTO;
 import com.ckweb.rest_api.dto.product.ProductPostRequestDTO;
 import com.ckweb.rest_api.dto.product.ProductPutRequestDTO;
-import com.ckweb.rest_api.service.impl.ProductService;
+import com.ckweb.rest_api.service.interfaces.ProductServiceInterface;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    ProductServiceInterface productService;
 
     @GetMapping
     @Operation(summary = "Listar todos os produtos", description = "Retorna uma lista de todos os produtos disponíveis.")

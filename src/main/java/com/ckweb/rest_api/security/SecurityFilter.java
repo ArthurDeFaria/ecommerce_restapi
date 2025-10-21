@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityFilter extends OncePerRequestFilter{
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     @Autowired
     private UserRepository userRepository;

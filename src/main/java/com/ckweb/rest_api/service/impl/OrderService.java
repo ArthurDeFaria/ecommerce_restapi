@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ckweb.rest_api.component.MercadoPagoClient;
+import com.ckweb.rest_api.component.MercadoPagoClientInterface;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO.BackUrlsDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO.ItemDTO;
@@ -33,7 +33,7 @@ import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.model.enumeration.PaymentStatus;
 import com.ckweb.rest_api.model.enumeration.ShipmentStatus;
 import com.ckweb.rest_api.repository.*;
-import com.ckweb.rest_api.service.JwtService;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 import com.ckweb.rest_api.service.interfaces.OrderServiceInterface;
 
 
@@ -54,7 +54,7 @@ public class OrderService implements OrderServiceInterface {
         private CartRepository cartRepository;
 
         @Autowired
-        private JwtService jwtService;
+        private JwtServiceInterface jwtService;
 
         // @Autowired
         // private CouponRepository couponRepository;
@@ -63,7 +63,7 @@ public class OrderService implements OrderServiceInterface {
         private CartService cartService;
 
         @Autowired
-        private MercadoPagoClient mercadoPagoClient;
+        private MercadoPagoClientInterface mercadoPagoClient;
 
         @Override
         public List<OrderResponseDTO> findAll() {

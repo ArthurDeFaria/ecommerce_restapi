@@ -16,8 +16,8 @@ import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.repository.FavoriteRepository;
 import com.ckweb.rest_api.repository.ProductRepository;
 import com.ckweb.rest_api.repository.UserRepository;
-import com.ckweb.rest_api.service.JwtService;
 import com.ckweb.rest_api.service.interfaces.FavoriteServiceInterface;
+import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 
 @Service
 public class FavoriteService implements FavoriteServiceInterface {
@@ -26,7 +26,7 @@ public class FavoriteService implements FavoriteServiceInterface {
     private FavoriteRepository favoriteRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceInterface jwtService;
 
     @Autowired
     private UserRepository userRepository;
