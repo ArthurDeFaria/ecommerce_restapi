@@ -33,7 +33,6 @@ class ProductControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void adminDeveConseguirApagarProduto() throws Exception {
-        // Simula o comportamento do serviço: quando delete() for chamado, retorne OK.
         when(productService.delete(anyLong())).thenReturn(ResponseEntity.ok().build());
 
         mockMvc.perform(delete("/produtos/1"))
@@ -68,7 +67,6 @@ class ProductControllerTest {
         }
         """;
 
-        // Simula o comportamento do serviço: quando save() for chamado, retorne OK.
         when(productService.save(any(ProductPostRequestDTO.class)))
                 .thenReturn(ResponseEntity.ok().build());
 
@@ -80,7 +78,6 @@ class ProductControllerTest {
 
     @Test
     void deveRetornar404AoBuscarProdutoInexistente() throws Exception {
-        // Simula o serviço a lançar a exceção que o GlobalExceptionHandler vai apanhar
         when(productService.findById(999L))
                 .thenThrow(new ResourceNotFoundException("Produto não encontrado"));
 

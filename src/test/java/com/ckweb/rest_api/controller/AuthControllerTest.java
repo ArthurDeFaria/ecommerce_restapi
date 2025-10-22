@@ -15,11 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// @SpringBootTest carrega o contexto completo da aplicação (incluindo a base H2)
 @SpringBootTest
-// @AutoConfigureMockMvc habilita o MockMvc para fazer requisições HTTP falsas
 @AutoConfigureMockMvc
-// @Transactional garante que os dados criados (ex: registo) sejam revertidos após o teste
 @Transactional
 class AuthControllerTest {
 
@@ -27,11 +24,10 @@ class AuthControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper; // Utilitário do Spring para converter objetos Java <-> JSON
+    private ObjectMapper objectMapper;
 
     @Test
     void deveRegistrarNovoUsuarioComSucesso() throws Exception {
-        // 1. Given (Arrange)
         RegisterRequestUser request = new RegisterRequestUser(
                 "Test User",
                 "registro@test.com",
@@ -41,7 +37,6 @@ class AuthControllerTest {
                 "991112222"
         );
 
-        // 2. When (Act) & 3. Then (Assert)
         mockMvc.perform(post("/auth/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -50,25 +45,20 @@ class AuthControllerTest {
 
     @Test
     void naoDeveRegistrarUsuarioComEmailDuplicado() throws Exception {
-        // 1. Given (Arrange)
         RegisterRequestUser request1 = new RegisterRequestUser(
                 "User 1", "duplicado@test.com", "senha123",
                 "11122233344", "01/01/2000", "991112222"
         );
-        // Primeiro registo (deve funcionar)
         mockMvc.perform(post("/auth/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request1)))
                 .andExpect(status().isOk());
 
-        // Segunda tentativa com o mesmo email
         RegisterRequestUser request2 = new RegisterRequestUser(
                 "User 2", "duplicado@test.com", "senha456",
                 "55566677788", "02/02/2000", "993334444"
         );
 
-        // 2. When (Act) & 3. Then (Assert)
-        // Esperamos um "Bad Request" (400)
         mockMvc.perform(post("/auth/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request2)))
@@ -77,8 +67,6 @@ class AuthControllerTest {
 
     @Test
     void deveAutenticarUsuarioRegistradoEretornarToken() throws Exception {
-        // 1. Given (Arrange)
-        // Primeiro, regista um usuário
         RegisterRequestUser registerRequest = new RegisterRequestUser(
                 "Login Test User",
                 "login@test.com",
@@ -92,22 +80,17 @@ class AuthControllerTest {
                         .content(objectMapper.writeValueAsString(registerRequest)))
                 .andExpect(status().isOk());
 
-        // Prepara a requisição de login
         AuthRequest loginRequest = new AuthRequest("login@test.com", "senhaForte123");
 
-        // 2. When (Act) & 3. Then (Assert)
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginRequest)))
                 .andExpect(status().isOk())
-                // Verifica se a resposta JSON contém a chave "token" e se ela não está vazia
                 .andExpect(jsonPath("$.token").isNotEmpty());
     }
 
     @Test
     void naoDeveRegistrarUsuarioComDadosInvalidos() throws Exception {
-        // 1. Given (Arrange)
-        // Criamos um pedido com email inválido e senha muito curta
         RegisterRequestUser request = new RegisterRequestUser(
                 "Test User",
                 "email-invalido.com", // Email inválido
@@ -117,13 +100,11 @@ class AuthControllerTest {
                 "991112222"
         );
 
-        // 2. When (Act) & 3. Then (Assert)
         mockMvc.perform(post("/auth/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest()) // Espera 400
                 .andExpect(jsonPath("$.message").value("Erro de validação"))
-                // Verifica se o JSON de resposta contém os erros específicos
                 .andExpect(jsonPath("$.errors.email").value("Formato de email inválido"))
                 .andExpect(jsonPath("$.errors.senha").value("Senha deve ter no mínimo 6 caracteres"))
                 .andExpect(jsonPath("$.errors.cpf").value("CPF não pode ser vazio"));

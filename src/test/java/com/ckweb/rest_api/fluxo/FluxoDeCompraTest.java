@@ -56,20 +56,18 @@ class FluxoDeCompraTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        // 1. REGISTAR UM PRODUTO
         testProduct = Product.builder()
                 .nome("Teste")
                 .preco(100.0)
                 .quantidadeEstoque(10)
-                .imagem_url("http://test.com/img.png") // <-- CORREÇÃO AQUI
-                .peso(1.0) // Adicionado por segurança, caso DTOs futuros o usem
+                .imagem_url("http://test.com/img.png")
+                .peso(1.0)
                 .altura(1.0)
                 .largura(1.0)
                 .comprimento(1.0)
                 .build();
         productRepository.save(testProduct);
 
-        // 2. REGISTAR UM UTILIZADOR
         RegisterRequestUser registerRequest = new RegisterRequestUser(
                 "Fluxo User", "fluxo@test.com", "senha123",
                 "12312312312", "01/01/1990", "991234567"
@@ -79,7 +77,6 @@ class FluxoDeCompraTest {
                         .content(objectMapper.writeValueAsString(registerRequest)))
                 .andExpect(status().isOk());
 
-        // 3. OBTER O TOKEN DE LOGIN
         AuthRequest loginRequest = new AuthRequest("fluxo@test.com", "senha123");
         MvcResult loginResult = mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +90,6 @@ class FluxoDeCompraTest {
 
     @Test
     void deveRealizarFluxoDeCompraCompleto() throws Exception {
-        // Etapa 1: Adicionar item ao carrinho
         CartAddItemRequestDTO addItemRequest = new CartAddItemRequestDTO(testProduct.getId(), 2);
 
         mockMvc.perform(post("/carrinho/adicionar")
@@ -104,24 +100,21 @@ class FluxoDeCompraTest {
                 .andExpect(jsonPath("$.itens[0].nome").value("Teste"))
                 .andExpect(jsonPath("$.itens[0].quantidade").value(2));
 
-        // Etapa 2: Configurar o Mock do Pagamento
         CreatePreferenceResponseDTO mockPaymentResponse = new CreatePreferenceResponseDTO("pref_123", "http://mp.com/pay");
         when(mercadoPagoClient.createPreference(any(), anyString())).thenReturn(mockPaymentResponse);
 
-        // Etapa 3: Finalizar o Pedido
-        OrderPostRequestDTO orderRequest = new OrderPostRequestDTO(BigDecimal.valueOf(25.0), null); // 25.0 de frete
+        OrderPostRequestDTO orderRequest = new OrderPostRequestDTO(BigDecimal.valueOf(25.0), null);
 
         mockMvc.perform(post("/pedidos/finalizar")
                         .header("Authorization", "Bearer " + userToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(orderRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.paymentUrl").value("http://mp.com/pay")) // Verifica o URL de pagamento
-                .andExpect(jsonPath("$.order.totalProdutos").value(200.0)) // 2 x 100.0
+                .andExpect(jsonPath("$.paymentUrl").value("http://mp.com/pay"))
+                .andExpect(jsonPath("$.order.totalProdutos").value(200.0))
                 .andExpect(jsonPath("$.order.totalFrete").value(25.0))
                 .andExpect(jsonPath("$.order.totalPedido").value(225.0));
 
-        // Etapa 4 (Verificação Opcional): Garantir que o pedido foi salvo na base de dados
         List<Order> orders = orderRepository.findAll();
         assertEquals(1, orders.size());
         assertEquals(225.0, orders.get(0).getTotalPedido().doubleValue());

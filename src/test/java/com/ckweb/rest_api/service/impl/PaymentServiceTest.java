@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,8 +22,6 @@ import static org.mockito.Mockito.when;
 
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-
-import jakarta.persistence.EntityManager;
 
 @SpringBootTest
 class PaymentServiceTest {
@@ -44,9 +41,6 @@ class PaymentServiceTest {
     private MercadoPagoClientInterface mercadoPagoClient;
 
     @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
     private CartItemRepository cartItemRepository;
 
     private Order testOrder;
@@ -56,7 +50,6 @@ class PaymentServiceTest {
 
     @BeforeEach
     void setUp(){
-        // 1. Cria User e Product
         testUser = User.builder().email("payment@test.com").senha("123").cargo(Cargo.USER).build();
         userRepository.save(testUser);
 
@@ -66,14 +59,12 @@ class PaymentServiceTest {
                 .build();
         productRepository.save(testProduct);
 
-        // 2. Cria um Carrinho cheio (para testar a limpeza)
         Cart cart = Cart.builder().usuario(testUser).build();
         CartItem cartItem = CartItem.builder().carrinho(cart).produto(testProduct).quantidade(10).build();
         cart.getItens().add(cartItem);
         cartRepository.save(cart);
         testUser.setCarrinho(cart);
 
-        // 3. Cria um Pedido (com 2 unidades do produto)
         testOrder = Order.builder()
                 .usuario(testUser)
                 .totalPedido(BigDecimal.valueOf(200.0))
@@ -84,12 +75,11 @@ class PaymentServiceTest {
         OrderItem orderItem = OrderItem.builder()
                 .pedido(testOrder)
                 .produto(testProduct)
-                .quantidade(2) // Quantidade comprada
+                .quantidade(2)
                 .build();
         testOrder.setItensPedido(List.of(orderItem));
         orderRepository.save(testOrder);
 
-        // 4. Simula a resposta DO NOSSO DTO
         PaymentStatusInfo mockPaymentInfo = new PaymentStatusInfo(
             "approved",
             testOrder.getId().toString()
@@ -104,27 +94,16 @@ class PaymentServiceTest {
 
     @Test
     void deveAbaterStockELimparCarrinhoQuandoPagamentoAprovado() {
-        // 1. Given
         Long productId = testProduct.getId();
-        Long userId = testUser.getId();
 
-        // 2. When
         paymentService.processWebhook(fakePaymentId, "payment");
 
-        entityManager.flush();
-        entityManager.clear();
-
-        // 3. Then
-        
         Product productAposVenda = productRepository.findById(productId)
                 .orElseThrow(() -> new AssertionError("Produto não encontrado após venda!"));
-
         assertEquals(48, productAposVenda.getQuantidadeEstoque(), "O stock devia ser 50 - 2 = 48");
 
-        // Teste de Limpeza de Carrinho
-        User userAposVenda = userRepository.findById(userId).get();
-        Cart cartAposVenda = cartRepository.findByUsuario(userAposVenda);
-        assertTrue(cartAposVenda == null || cartAposVenda.getItens().isEmpty(), "O carrinho do usuário devia estar vazio ou nulo");
+        long itemsRestantesNoCarrinho = cartItemRepository.count();
+        assertEquals(0, itemsRestantesNoCarrinho, "Todos os CartItems deviam ter sido removidos");
     }
 
     @AfterEach

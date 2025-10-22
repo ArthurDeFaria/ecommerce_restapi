@@ -1,5 +1,12 @@
 package com.ckweb.rest_api.service.impl;
 
+import com.ckweb.rest_api.model.OrderItem;
+import com.ckweb.rest_api.model.Product;
+import com.ckweb.rest_api.model.enumeration.PaymentStatus;
+import com.ckweb.rest_api.model.enumeration.ShipmentStatus;
+import com.ckweb.rest_api.repository.ProductRepository;
+import com.ckweb.rest_api.service.interfaces.CartServiceInterface;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ckweb.rest_api.component.MercadoPagoClientInterface;
@@ -21,50 +28,85 @@ public class PaymentService implements PaymentServiceInterface {
     @Autowired
     private OrderRepository orderRepository;
 
-    
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CartServiceInterface cartService;
+
+    @Override
     @Transactional
     public ProcessWebhookResponseDTO processWebhook(Long paymentId, String type) {
-
         try {
-            // 1. Obtenha os detalhes DO NOSSO DTO
-            PaymentStatusInfo paymentInfo = mercadoPagoClient.getPaymentStatus(paymentId); // 2. Usar o novo tipo
+            PaymentStatusInfo paymentInfo = mercadoPagoClient.getPaymentStatus(paymentId);
             log.info("Webhook recebido para o pagamento: {}", paymentId);
 
-            // 2. Extraia a referência externa
-            String orderIdStr = paymentInfo.externalReference(); // 3. Usar o campo do DTO
+            String orderIdStr = paymentInfo.externalReference();
             if (orderIdStr == null) {
-                // ... (erro)
+                 log.error("Webhook para pagamento {} sem external_reference.", paymentId);
+                 throw new IllegalArgumentException("External reference não encontrada.");
             }
             Long orderId = Long.parseLong(orderIdStr);
             Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Pedido com ID " + orderId + " não encontrado."));
 
-            // 4. Mapeie o status do Mercado Pago
-            String mpStatus = paymentInfo.status(); // 4. Usar o campo do DTO
+            String mpStatus = paymentInfo.status();
             com.ckweb.rest_api.model.Payment pedidoPagamento = order.getPagamento();
-
-            // --- IMPORTANTE: Remover dependências de outros campos ---
-            // Se precisar de mais campos (data, forma de pagamento), adicione-os ao DTO PaymentStatusInfo
-            // e mapeie-os no MercadoPagoClient.
-            // Por agora, vamos remover as linhas que dependiam do objeto Payment original:
-            // pedidoPagamento.setDataPagamento(paymentInfo.getDateApproved() != null ? paymentInfo.getDateApproved().toString() : null); // REMOVER
-            // pedidoPagamento.setFormaPagamento(paymentInfo.getPaymentTypeId()); // REMOVER
-            // --------------------------------------------------------
 
             switch (mpStatus) {
                 case "approved":
-                    // ... (lógica existente, incluindo stock e limpeza de carrinho)
+                    pedidoPagamento.setStatusPagamento(PaymentStatus.APPROVED);
+                    order.getEnvio().setStatusEnvio(ShipmentStatus.WAITING_PICKUP);
+
+                    log.info("Abatendo stock para o pedido {}", orderId);
+                    for (OrderItem item : order.getItensPedido()) {
+                        Product produto = item.getProduto();
+                        int quantidadeComprada = item.getQuantidade();
+                        int novoStock = Math.max(0, produto.getQuantidadeEstoque() - quantidadeComprada);
+                        if (produto.getQuantidadeEstoque() < quantidadeComprada) {
+                            log.error("STOCK INCONSISTENTE! Pedido {} aprovado, mas produto {} (ID: {}) não tem stock suficiente (disponível: {}, comprado: {}).",
+                                     orderId, produto.getNome(), produto.getId(), produto.getQuantidadeEstoque(), quantidadeComprada);
+                        }
+                        produto.setQuantidadeEstoque(novoStock);
+                        productRepository.save(produto);
+                    }
+
+                    try {
+                        cartService.clearCartByUser(order.getUsuario());
+                        log.info("Carrinho do usuário {} limpo com sucesso.", order.getUsuario().getEmail());
+                    } catch (Exception e) {
+                        log.error("Falha ao tentar limpar o carrinho do usuário {}: {}", order.getUsuario().getEmail(), e.getMessage());
+                    }
                     break;
-                // ... (outros cases)
+
+                case "rejected":
+                    pedidoPagamento.setStatusPagamento(PaymentStatus.REJECTED);
+                    order.getEnvio().setStatusEnvio(ShipmentStatus.CANCELLED);
+                    break;
+
+                case "cancelled":
+                case "refunded":
+                case "charged_back":
+                    pedidoPagamento.setStatusPagamento(PaymentStatus.CANCELLED);
+                    order.getEnvio().setStatusEnvio(ShipmentStatus.CANCELLED);
+                    // Futuramente: Adicionar lógica para repor stock cancelado/devolvido
+                    break;
+
+                case "in_process":
+                case "pending":
+                default:
+                    pedidoPagamento.setStatusPagamento(PaymentStatus.PENDING);
+                    break;
             }
 
-            // 5. Salve as alterações
             orderRepository.save(order);
-            // ... (return)
+
+            log.info("Pedido {} atualizado com status de pagamento: {}", orderId, pedidoPagamento.getStatusPagamento().name());
+            return new ProcessWebhookResponseDTO(true, mpStatus);
 
         } catch (Exception e) {
-            // ... (catch)
+             log.error("Erro ao processar webhook do Mercado Pago para o pagamento ID {}: {}", paymentId, e.getMessage());
+             throw new RuntimeException("Erro ao processar webhook: " + e.getMessage(), e);
         }
-        return new ProcessWebhookResponseDTO(false, "error"); // Adicione um retorno aqui para o caso de exceção
     }
 }
