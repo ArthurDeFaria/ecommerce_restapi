@@ -1,6 +1,8 @@
 # 📦 API REST de E-commerce
 
-![Java](https://img.shields.io/badge/Java-21%2B-red?style=for-the-badge&logo=openjdk) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green?style=for-the-badge&logo=spring) ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge) ![CI/CD](https://github.com/ArthurDeFaria/ecommerce_restapi/actions/workflows/build.yml/badge.svg) ## 📜 Descrição
+![Java](https://img.shields.io/badge/Java-21%2B-red?style=for-the-badge&logo=openjdk) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green?style=for-the-badge&logo=spring) ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge) ![CI/CD](https://github.com/ArthurDeFaria/ecommerce_restapi/actions/workflows/build.yml/badge.svg)
+
+## 📜 Descrição
 
 Esta é uma API REST robusta desenvolvida em Java com Spring Boot, projetada para servir como o backend completo para uma plataforma de E-commerce moderna. Ela gerencia todo o ciclo de vida da loja virtual, desde o cadastro e autenticação de usuários, catálogo de produtos, carrinho de compras, finalização de pedidos, até integrações essenciais com sistemas de pagamento e cálculo de frete.
 
