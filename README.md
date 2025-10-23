@@ -129,8 +129,6 @@ Lá, você pode explorar todos os endpoints, ver os modelos de dados (DTOs) e at
 
 A tabela abaixo lista os principais endpoints disponíveis. Consulte o Swagger UI para detalhes completos sobre parâmetros, corpos de requisição/resposta e códigos de status.
 
-*(Mantenha a sua tabela existente aqui, atualizando o status se necessário)*
-
 | Método | Endpoint                      | Descrição                                 | Acesso                 | Status       |
 | :----- | :---------------------------- | :---------------------------------------- | :--------------------- | :----------- |
 | POST   | /auth/registro            | Cria uma nova conta de usuário.           | Público                | ✅ Pronto    |
