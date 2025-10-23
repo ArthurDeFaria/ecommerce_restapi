@@ -2,6 +2,7 @@ package com.ckweb.rest_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -24,6 +25,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
     in = SecuritySchemeIn.HEADER
 )
 @SpringBootApplication
+@DependsOnDatabaseInitialization
 public class RestApiApplication {
 
 	public static void main(String[] args) {

@@ -1,0 +1,36 @@
+name: Build e Teste da API Java com Maven
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Dar permissão de execução ao mvnw
+      run: chmod +x ./mvnw
+
+    - name: Construir e Testar com Maven Wrapper
+      run: ./mvnw clean verify
+      env:
+        DATASOURCE_URL: jdbc:h2:mem:testdb
+        DATASOURCE_USERNAME: sa
+        DATASOURCE_PASSWORD: ''
+        JWT_SECRET: TEST_SECRET_FOR_CI_STRING_LONGA_O_SUFICIENTE
+        SUPER_FRETE_TOKEN: TEST_TOKEN_CI
+        MERCADO_PAGO_TOKEN: TEST_TOKEN_CI
+        MERCADO_PAGO_NOTIFICATION_URL: http://localhost/ci/webhook

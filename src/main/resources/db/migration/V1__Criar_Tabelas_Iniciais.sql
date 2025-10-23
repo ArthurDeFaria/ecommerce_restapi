@@ -1,0 +1,137 @@
+-- V1__Criar_Tabelas_Iniciais.sql (Versão Compatível H2/PostgreSQL)
+
+CREATE SEQUENCE IF NOT EXISTS public.avaliacao_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.carrinho_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.cupom_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.endereco_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.envio_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.favorito_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.item_carrinho_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.item_pedido_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.pagamento_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.pedido_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.produto_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.usuario_cupom_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS public.usuario_seq START WITH 1 INCREMENT BY 50;
+
+CREATE TABLE public.cupom (
+    id int8 NOT NULL PRIMARY KEY,
+    ativo bool NULL,
+    codigo varchar(255) NULL,
+    data_validade varchar(255) NULL,
+    tipo varchar(255) NULL CHECK (tipo IN ('PERCENTAGE', 'FIXED_AMOUNT')),
+    uso_maximo int4 NULL,
+    uso_maximo_individual int4 NULL,
+    valor float8 NULL
+);
+
+CREATE TABLE public.pagamento (
+    id int8 NOT NULL PRIMARY KEY,
+    data_pagamento varchar(255) NULL,
+    forma_pagamento varchar(255) NULL,
+    parcelas int4 NULL,
+    status_pagamento varchar(255) NULL CHECK (status_pagamento IN ('PENDING', 'APPROVED', 'REJECTED', 'CANCELLED')),
+    valor float8 NULL
+);
+
+CREATE TABLE public.produto (
+    id int8 NOT NULL PRIMARY KEY,
+    altura float8 NULL,
+    categoria varchar(255) NULL,
+    comprimento float8 NULL,
+    descricao varchar(255) NULL,
+    imagem_url varchar(255) NULL,
+    largura float8 NULL,
+    nome varchar(255) NULL,
+    peso float8 NULL,
+    preco float8 NULL,
+    quantidade_estoque int4 NULL
+);
+
+CREATE TABLE public.usuario (
+    id int8 NOT NULL PRIMARY KEY,
+    cargo varchar(255) NULL CHECK (cargo IN ('USER', 'ADMIN', 'MANAGER')),
+    cpf varchar(255) UNIQUE,
+    data_nascimento varchar(255) NULL,
+    email varchar(255) UNIQUE,
+    nome varchar(255) NULL,
+    senha varchar(255) NULL,
+    telefone varchar(255) UNIQUE
+);
+
+CREATE TABLE public.avaliacao (
+    id int8 NOT NULL PRIMARY KEY,
+    comentario varchar(255) NULL,
+    "data" varchar(255) NULL, -- Aspas duplas podem ser necessárias para H2 se 'data' for palavra reservada
+    nota int4 NULL,
+    produto_id int8 NULL REFERENCES public.produto(id),
+    usuario_id int8 NULL REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.carrinho (
+    id int8 NOT NULL PRIMARY KEY,
+    usuario_id int8 NOT NULL UNIQUE REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.endereco (
+    id int8 NOT NULL PRIMARY KEY,
+    bairro varchar(255) NOT NULL,
+    cep varchar(255) NOT NULL,
+    complemento varchar(255) NULL,
+    numero varchar(255) NOT NULL,
+    rua varchar(255) NOT NULL,
+    usuario_id int8 NOT NULL REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.envio (
+    id int8 NOT NULL PRIMARY KEY,
+    cod_rastreamento varchar(255) NULL,
+    data_entrega_prevista varchar(255) NULL,
+    data_entrega_realizada varchar(255) NULL,
+    data_envio varchar(255) NULL,
+    status_envio varchar(255) NULL CHECK (status_envio IN ('WAITING_PAYMENT', 'WAITING_PICKUP', 'IN_TRANSIT', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED')),
+    tipo_envio varchar(255) NULL,
+    transportadora varchar(255) NULL,
+    endereco_id int8 NULL REFERENCES public.endereco(id)
+);
+
+CREATE TABLE public.favorito (
+    id int8 NOT NULL PRIMARY KEY,
+    data_adicionado varchar(255) NULL,
+    produto_id int8 NULL REFERENCES public.produto(id),
+    usuario_id int8 NULL REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.item_carrinho (
+    id int8 NOT NULL PRIMARY KEY,
+    quantidade int4 NOT NULL,
+    carrinho_id int8 NULL REFERENCES public.carrinho(id),
+    produto_id int8 NULL REFERENCES public.produto(id)
+);
+
+CREATE TABLE public.pedido (
+    id int8 NOT NULL PRIMARY KEY,
+    data_pedido varchar(255) NULL,
+    total_frete numeric(38, 2) NULL,
+    total_pedido numeric(38, 2) NULL,
+    total_produtos numeric(38, 2) NULL,
+    cupom_id int8 NULL REFERENCES public.cupom(id),
+    shipment_id int8 UNIQUE NULL REFERENCES public.envio(id),
+    pagamento_id int8 UNIQUE NULL REFERENCES public.pagamento(id),
+    usuario_id int8 NULL REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.usuario_cupom (
+    id int8 NOT NULL PRIMARY KEY,
+    uso_individual int4 NOT NULL,
+    cupom_id int8 NULL REFERENCES public.cupom(id),
+    usuario_id int8 NULL REFERENCES public.usuario(id)
+);
+
+CREATE TABLE public.item_pedido (
+    id int8 GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    preco_unitario float8 NULL,
+    quantidade int4 NULL,
+    pedido_id int8 NULL REFERENCES public.pedido(id),
+    produto_id int8 NULL REFERENCES public.produto(id)
+);

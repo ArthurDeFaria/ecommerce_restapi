@@ -1,0 +1,25 @@
+# Ignora ficheiros e pastas do Git
+.git
+.gitignore
+
+# Ignora ficheiros específicos de IDEs
+.idea
+.vscode
+*.iml
+*.ipr
+*.iws
+
+# Ignora a pasta target gerada localmente (o build será feito dentro do Docker)
+target/
+
+# Ignora logs gerados localmente
+logs/
+*.log
+
+# Ignora o ficheiro .env local (uma cópia será feita explicitamente no Dockerfile, se existir)
+# Se preferir passar variáveis de ambiente apenas pelo docker-compose, descomente a linha abaixo
+# .env
+
+# Ignora ficheiros de configuração do SO ou outros irrelevantes
+.DS_Store
+Thumbs.db
