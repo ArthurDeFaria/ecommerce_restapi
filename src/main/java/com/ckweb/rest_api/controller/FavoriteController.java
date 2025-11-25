@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ckweb.rest_api.dto.favorite.FavoritePostRequestDTO;
 import com.ckweb.rest_api.dto.favorite.FavoriteResponseDTO;
-import com.ckweb.rest_api.service.impl.FavoriteService;
+import com.ckweb.rest_api.service.interfaces.FavoriteServiceInterface;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class FavoriteController {
 
     @Autowired
-    private FavoriteService favoriteService;
+    private FavoriteServiceInterface favoriteService;
     
     @GetMapping
     @Operation(summary = "Listar favoritos", description = "Lista os produtos favoritos do usuário logado.")

@@ -6,6 +6,7 @@ import com.ckweb.rest_api.model.enumeration.PaymentStatus;
 import com.ckweb.rest_api.model.enumeration.ShipmentStatus;
 import com.ckweb.rest_api.repository.ProductRepository;
 import com.ckweb.rest_api.service.interfaces.CartServiceInterface;
+import com.ckweb.rest_api.service.interfaces.CouponServiceInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class PaymentService implements PaymentServiceInterface {
 
     @Autowired
     private CartServiceInterface cartService;
+
+    @Autowired
+    private CouponServiceInterface couponService;
 
     @Override
     @Transactional
@@ -76,6 +80,14 @@ public class PaymentService implements PaymentServiceInterface {
                         log.info("Carrinho do usuário {} limpo com sucesso.", order.getUsuario().getEmail());
                     } catch (Exception e) {
                         log.error("Falha ao tentar limpar o carrinho do usuário {}: {}", order.getUsuario().getEmail(), e.getMessage());
+                    }
+
+                    try {
+                       couponService.registerCouponUsage(order);
+                       log.info("Uso do cupom registrado para o pedido {}", order.getId());
+                    } catch (Exception e) {
+                       log.error("Falha ao registrar uso do cupom para o pedido {}: {}", order.getId(), e.getMessage());
+                       // Não falhar o webhook por causa disso, apenas logar.
                     }
                     break;
 

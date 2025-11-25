@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ckweb.rest_api.component.MercadoPagoClientInterface;
+import com.ckweb.rest_api.dto.coupon.ValidateCouponResponseDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO.BackUrlsDTO;
 import com.ckweb.rest_api.dto.mecadopago.CreatePreferenceRequestDTO.ItemDTO;
@@ -24,6 +25,7 @@ import com.ckweb.rest_api.dto.payment.PaymentResonseDTO;
 import com.ckweb.rest_api.dto.shipment.ShipmentResponseDTO;
 import com.ckweb.rest_api.exception.ResourceNotFoundException;
 import com.ckweb.rest_api.model.Cart;
+import com.ckweb.rest_api.model.Coupon;
 // import com.ckweb.rest_api.model.Coupon;
 import com.ckweb.rest_api.model.Order;
 import com.ckweb.rest_api.model.OrderItem;
@@ -34,6 +36,7 @@ import com.ckweb.rest_api.model.User;
 import com.ckweb.rest_api.model.enumeration.PaymentStatus;
 import com.ckweb.rest_api.model.enumeration.ShipmentStatus;
 import com.ckweb.rest_api.repository.*;
+import com.ckweb.rest_api.service.interfaces.CouponServiceInterface;
 import com.ckweb.rest_api.service.interfaces.JwtServiceInterface;
 import com.ckweb.rest_api.service.interfaces.OrderServiceInterface;
 
@@ -58,8 +61,11 @@ public class OrderService implements OrderServiceInterface {
         @Autowired
         private JwtServiceInterface jwtService;
 
-        // @Autowired
-        // private CouponRepository couponRepository;
+        @Autowired
+        private CouponRepository couponRepository;
+
+        @Autowired
+        private CouponServiceInterface couponService;
 
         // @Autowired
         // private CartService cartService;
@@ -106,7 +112,21 @@ public class OrderService implements OrderServiceInterface {
                     throw new IllegalStateException("Não é possível criar um pedido com o carrinho vazio.");
                 }
 
-                Order pedido = buildInitialOrder(request, user, cart);
+                Coupon couponAplicado = null;
+                BigDecimal valorDesconto = BigDecimal.ZERO;
+
+                if (request.codigoCupom() != null && !request.codigoCupom().isBlank()) {
+                ValidateCouponResponseDTO validacao = couponService.validateCoupon(
+                        request.codigoCupom(), user.getId(), cart.getItens()
+                );
+                if (!validacao.valido()) {
+                        throw new IllegalArgumentException("Cupom inválido: " + validacao.mensagem());
+                }
+                valorDesconto = validacao.valorDesconto();
+                couponAplicado = couponRepository.findById(validacao.couponId()).orElse(null); // Busca o cupom
+                }
+
+                Order pedido = buildInitialOrder(request, user, cart, couponAplicado, valorDesconto);
 
                 Order savedOrder = orderRepository.save(pedido);
 
@@ -125,14 +145,15 @@ public class OrderService implements OrderServiceInterface {
                 return new FinalizeOrderResponseDTO(orderResponse, paymentPreference.redirectUrl());
         }
         
-        private Order buildInitialOrder(OrderPostRequestDTO request, User user, Cart cart) {
+        private Order buildInitialOrder(OrderPostRequestDTO request, User user, Cart cart, Coupon coupon, BigDecimal desconto) { // Novos parâmetros
                 BigDecimal totalProdutos = cart.getItens().stream()
                         .map(item -> BigDecimal.valueOf(item.getProduto().getPreco())
                                 .multiply(BigDecimal.valueOf(item.getQuantidade())))
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                 BigDecimal totalFrete = request.totalFrete() != null ? request.totalFrete() : BigDecimal.ZERO;
-                BigDecimal totalPedido = totalProdutos.add(totalFrete);
+                BigDecimal subTotalComDesconto = totalProdutos.subtract(desconto);
+                BigDecimal totalPedido = subTotalComDesconto.add(totalFrete);
 
                 Payment pagamento = Payment.builder()
                         .valor(totalPedido.doubleValue())
@@ -150,7 +171,7 @@ public class OrderService implements OrderServiceInterface {
                         .totalFrete(totalFrete)
                         .totalPedido(totalPedido)
                         .usuario(user)
-                        .cupom(null)
+                        .cupom(coupon)
                         .pagamento(pagamento)
                         .envio(envio)
                         .build();

@@ -73,6 +73,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/pedidos").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/pedidos/finalizar").hasAnyRole("USER", "MANAGER", "ADMIN")
 
+                .requestMatchers(HttpMethod.POST, "/cupons").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/cupons").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/cupons/validar/{codigo}").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/cupons/{id}").hasRole("ADMIN")
+
                 // Rever regras de acesso a partir deste ponto
                 .requestMatchers(HttpMethod.POST, "/pagamentos/webhooks").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pagamentos").hasAnyRole("USER", "MANAGER", "ADMIN")
@@ -80,11 +85,6 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET, "/envios/{pedidoId}").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/envios/{pedidoId}").hasAnyRole("MANAGER", "ADMIN")
-
-                .requestMatchers(HttpMethod.POST, "/cupons").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/cupons").hasAnyRole("MANAGER", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/cupons/{codigo}").hasAnyRole("USER", "MANAGER", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/cupons/{id}").hasRole("ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/itens-pedido/**").hasAnyRole("USER", "MANAGER", "ADMIN")
 
